@@ -56,6 +56,13 @@ return [
             'throw' => false,
         ],
 
+        'medicines' => [
+            'driver' => 'local',
+            'root' => storage_path('app/medicines'),
+            'url' => env('APP_URL').'/medicines',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
     ],
 
     /*
@@ -71,6 +78,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('medicines') => storage_path('app/medicines'),
     ],
 
 ];
