@@ -23,7 +23,7 @@ class UnitResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')->required()->maxLength(255)
             ]);
     }
 
@@ -31,7 +31,7 @@ class UnitResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
             ])
             ->filters([
                 //
