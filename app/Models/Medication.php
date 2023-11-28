@@ -24,6 +24,11 @@ class Medication extends Model
         return $this->belongsTo(Unit::class);
     }
 
+    public function orders(): BelongsToMany
+    {
+        return $this->belongsToMany(Order::class, 'order_medication');
+    }
+
     protected static function booted(): void
     {
         static::deleted(function (Medication $medication) {
