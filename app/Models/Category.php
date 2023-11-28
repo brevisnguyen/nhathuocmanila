@@ -10,8 +10,10 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function medications(): BelongsToMany
     {
-        return $this->belongsToMany(Medication::class);
+        return $this->belongsToMany(Medication::class, 'category_medication');
     }
 }

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->decimal('price')->nullable();
             $table->decimal('cost')->nullable();
             $table->foreignId('unit_id')->constrained();
+            $table->integer('inventory')->default(0);
+            $table->integer('sold_count')->default(0);
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();

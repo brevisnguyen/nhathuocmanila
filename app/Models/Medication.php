@@ -12,9 +12,11 @@ class Medication extends Model
 {
     use HasFactory;
 
-    public function category(): BelongsToMany
+    protected $fillable = ['name', 'price', 'cost', 'unit_id', 'inventory', 'sold_count', 'image', 'description'];
+
+    public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'category_medication');
     }
 
     public function unit(): BelongsTo
