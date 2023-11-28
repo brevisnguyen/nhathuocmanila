@@ -10,20 +10,23 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UnitResource extends Resource
 {
     protected static ?string $model = Unit::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Đơn vị';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required()->maxLength(255)
+                Forms\Components\TextInput::make('name')
+                    ->label('Tên đơn vị')
+                    ->hint('Ví dụ hộp, viên, vỉ...')
+                    ->required()
+                    ->maxLength(255)
             ]);
     }
 
