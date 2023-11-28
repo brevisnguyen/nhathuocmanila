@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MedicationResource\Pages;
-use App\Filament\Resources\MedicationResource\RelationManagers;
 use App\Models\Category;
 use App\Models\Medication;
 use App\Models\Unit;
@@ -12,14 +11,13 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MedicationResource extends Resource
 {
     protected static ?string $model = Medication::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Thuốc';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Form $form): Form
     {
@@ -31,12 +29,21 @@ class MedicationResource extends Resource
                             ->label('Tên thuốc')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\Select::make('category')
+                        Forms\Components\Select::make('categories')
                             ->label('Danh mục thuốc')
                             ->required()
                             ->multiple()
-                            ->searchable()
-                            ->options(Category::all()->pluck('name', 'id')),
+                            ->relationship('categories', 'name')
+                            ->preload(),
+                        Forms\Components\TextInput::make('inventory')
+                            ->label('Số lượng trong kho')
+                            ->numeric()
+                            ->minValue(1)
+                            ->required(),
+                        Forms\Components\TextInput::make('sold_count')
+                            ->label('Số lượng đã bán')
+                            ->numeric()
+                            ->disabled(),
                         Forms\Components\FileUpload::make('image')
                             ->label('Hình ảnh')
                             ->image()
@@ -76,10 +83,45 @@ class MedicationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Tên thuốc')
+                    ->copyable()
+                    ->searchable()
+                    ->size(Tables\Columns\TextColumn\TextColumnSize::Large)
+                    ->weight(\Filament\Support\Enums\FontWeight::Bold),
+                Tables\Columns\TextColumn::make('price')
+                    ->label('Giá bán')
+                    ->money('PHP'),
+                Tables\Columns\TextColumn::make('unit.name')
+                    ->label('Đơn vị')
+                    ->badge(),
+                Tables\Columns\TextColumn::make('sold_count')
+                    ->label('Đã bán')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('inventory')
+                    ->label('Trong kho')
+                    ->sortable()
+                    ->badge()
+                    ->color(function (int $state): string {
+                        if ($state <= 10) {
+                            return 'danger';
+                        } else if ($state > 10 && $state <= 20) {
+                            return 'warning';
+                        } else if ($state > 20 && $state <= 50) {
+                            return 'info';
+                        } else {
+                            return 'success';
+                        }
+                    }),
+                Tables\Columns\ImageColumn::make('image')
+                    ->disk('medicines')
             ])
             ->filters([
-                //
-            ])
+                Tables\Filters\SelectFilter::make('category')
+                    ->label('Danh mục')
+                    ->relationship('categories', 'name')
+                    ->searchable()
+                    ->preload(),
+            ], layout: Tables\Enums\FiltersLayout::AboveContent)
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -92,9 +134,7 @@ class MedicationResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

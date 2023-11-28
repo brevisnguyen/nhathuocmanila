@@ -24,7 +24,10 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required()->maxLength(255)
+                Forms\Components\TextInput::make('name')
+                    ->label('Tên danh mục')
+                    ->required()
+                    ->maxLength(255)
             ]);
     }
 
