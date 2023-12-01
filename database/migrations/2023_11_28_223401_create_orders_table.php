@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('customer');
             $table->string('phone')->nullable();
             $table->string('payment_method');
-            $table->decimal('total_amount');
+            $table->decimal('total_amount')->default(0);
             $table->timestamps();
         });
     }
