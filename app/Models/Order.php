@@ -13,13 +13,19 @@ class Order extends Model
 
     protected $fillable = ['customer', 'phone', 'payment_method', 'total_amount'];
 
-    // public function medications(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(Medication::class, 'order_medication')->withPivot('quantity');
-    // }
+    public function medications(): BelongsToMany
+    {
+        return $this->belongsToMany(Medication::class, 'order_medication')->withPivot(['quantity', 'amount']);
+    }
 
     public function orderMedications(): HasMany
     {
         return $this->hasMany(OrderMedication::class);
+    }
+
+    public function setTotalAmount()
+    {
+        $this->total_amount = $this->medications()->sum('amount');
+        $this->save();
     }
 }

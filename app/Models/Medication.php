@@ -26,7 +26,7 @@ class Medication extends Model
 
     public function orders(): BelongsToMany
     {
-        return $this->belongsToMany(Order::class, 'order_medication')->withPivot('quantity');
+        return $this->belongsToMany(Order::class, 'order_medication')->withPivot(['quantity', 'amount']);
     }
 
     protected static function booted(): void
