@@ -15,7 +15,8 @@ use Filament\Tables\Table;
 class MedicationResource extends Resource
 {
     protected static ?string $model = Medication::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Cửa hàng';
+    protected static ?string $navigationIcon = 'heroicon-s-link';
     protected static ?string $navigationLabel = 'Thuốc';
     protected static ?string $recordTitleAttribute = 'name';
 

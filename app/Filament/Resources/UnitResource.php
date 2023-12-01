@@ -14,7 +14,8 @@ use Filament\Tables\Table;
 class UnitResource extends Resource
 {
     protected static ?string $model = Unit::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Cửa hàng';
+    protected static ?string $navigationIcon = 'heroicon-o-chart-pie';
     protected static ?string $navigationLabel = 'Đơn vị';
     protected static ?string $recordTitleAttribute = 'name';
 
