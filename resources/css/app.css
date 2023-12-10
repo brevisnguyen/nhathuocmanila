@@ -1,3 +1,12 @@
+@import '@splidejs/splide/css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.splide__pagination__page {
+    @apply bg-gray-400 !important;
+}
+.splide__pagination__page.is-active {
+    @apply bg-lime-600 !important;
+}

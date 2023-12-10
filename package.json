@@ -14,6 +14,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@splidejs/splide": "^4.1.4",
         "alpinejs": "^3.13.3"
     }
 }
