@@ -3,14 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MedicationResource\Pages;
-use App\Models\Category;
 use App\Models\Medication;
 use App\Models\Unit;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 class MedicationResource extends Resource
 {
@@ -29,13 +30,18 @@ class MedicationResource extends Resource
                         Forms\Components\TextInput::make('name')
                             ->label('Tên thuốc')
                             ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
                             ->maxLength(255),
+                        Forms\Components\TextInput::make('slug')
+                            ->required(),
                         Forms\Components\Select::make('categories')
                             ->label('Danh mục thuốc')
                             ->required()
                             ->multiple()
                             ->relationship('categories', 'name')
-                            ->preload(),
+                            ->preload()
+                            ->columnSpan(2),
                         Forms\Components\TextInput::make('inventory')
                             ->label('Số lượng trong kho')
                             ->numeric()

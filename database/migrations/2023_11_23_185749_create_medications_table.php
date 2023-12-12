@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('medications', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->decimal('price')->nullable();
             $table->decimal('cost')->nullable();
             $table->foreignId('unit_id')->constrained();
