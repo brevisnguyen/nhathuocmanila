@@ -1,6 +1,8 @@
 <?php
 
+use App\Livewire\Category;
 use App\Livewire\HomePage;
+use App\Livewire\Medication;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomePage::class)->name('homepage');
+Route::get('/danh-muc/{category:slug}', Category::class)->name('categories');
+Route::get('/thuoc/{medication:slug}', Medication::class)->name('products');

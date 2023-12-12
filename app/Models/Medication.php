@@ -12,7 +12,7 @@ class Medication extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'price', 'cost', 'unit_id', 'inventory', 'sold_count', 'image', 'description'];
+    protected $fillable = ['name', 'slug', 'price', 'cost', 'unit_id', 'inventory', 'sold_count', 'image', 'description'];
 
     public function categories(): BelongsToMany
     {
@@ -37,5 +37,10 @@ class Medication extends Model
                 Storage::disk('medicines')->delete($file_name);
             }
         });
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }

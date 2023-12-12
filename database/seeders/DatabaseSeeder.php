@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'brevisnguyen@example.com',
         ]);
 
-        \App\Models\Category::created(['name' => 'Khác']);
+        \App\Models\Category::create(['name' => 'Khác', 'slug' => 'danh-muc-khac']);
 
         \App\Models\Unit::create(['name' => 'Viên']);
     }

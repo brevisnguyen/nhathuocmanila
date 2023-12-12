@@ -10,10 +10,15 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'slug'];
 
     public function medications(): BelongsToMany
     {
         return $this->belongsToMany(Medication::class, 'category_medication');
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }
