@@ -24,9 +24,9 @@
                 </div>
                 <div class="nav col-span-6 px-2 mx-auto hidden md:block">
                     <nav class="py-4 uppercase font-bold flex gap-x-10">
-                        <a href="{{ route('homepage') }}" @class(['text-lime-500'=> request()->routeIs('homepage')]) class="hover:text-lime-500">home</a>
-                        <a href="{{ route('homepage') }}" @class(['text-lime-500'=> request()->routeIs('share')]) class="hover:text-lime-500">share</a>
-                        <a href="{{ route('homepage') }}" @class(['text-lime-500'=> request()->routeIs('contact')]) class="hover:text-lime-500">contact</a>
+                        <a href="{{ route('homepage') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('homepage')])>home</a>
+                        <a href="{{ route('homepage') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('share')])>share</a>
+                        <a href="{{ route('homepage') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('contact')])>contact</a>
                     </nav>
                 </div>
                 <div class="contact col-span-3 px-2 text-right">
@@ -59,18 +59,18 @@
                     <li class="py-2 cursor-pointer hover:ml-2 hover:text-lime-800 hover:transition-all hover:duration-200">Danh mục 6</li>
                 </ul>
             </div>
-            <div class="search md:col-span-9 md:px-3 mb-7">
+            <div class="search md:col-span-9 md:px-3">
                 <div class="search-form flex flex-col md:flex-row justify-between mb-4 md:mb-8">
                     <div class="w-full md:w-3/4">
                         <form action="search">
                             <div class="flex items-center relative h-12 border border-solid border-gray-300">
                                 <div class="font-bold ml-5 mr-8 hidden md:block">Tất cả danh mục</div>
-                                <input type="text" placeholder="Bạn muốn tìm thuốc nào?" class="border-none placeholder:text-gray-400 outline-none ring-0 grow px-4">
+                                <input type="text" placeholder="Bạn muốn tìm thuốc gì ạ?" class="border-none placeholder:text-gray-400 outline-none ring-0 grow px-4">
                                 <button type="submit" class="bg-lime-700 text-white px-3 md:px-6 h-full items-end">Tìm kiếm</button>
                             </div>
                         </form>
                     </div>
-                    <div class="search-phone flex items-center justify-center mt-2">
+                    <div class="search-phone flex items-center justify-center">
                         <div class="bg-slate-200 rounded-full mr-4 w-10 h-10 flex items-center justify-center text-lime-900"><i class="fa-solid fa-phone"></i></div>
                         <div class="grid grid-rows-2">
                             <span class="font-bold text-slate-950">0985 435 9999</span>
@@ -79,12 +79,12 @@
                     </div>
                 </div>
                 <div class="hero-banner">
-                    <section class="splide" aria-label="Banner">
+                    <section id="hero-banner" class="splide max-h-[430px]" aria-label="Banner">
                         <div class="splide__track">
                             <ul class="splide__list">
-                                <li class="splide__slide"><img class="w-full object-cover max-h-[460px]" src="{{ asset('storage/banner-unsplash.jpg') }}" alt=""></li>
-                                <li class="splide__slide"><img class="w-full object-cover max-h-[460px]" src="{{ asset('storage/banner-unsplash.jpg') }}" alt=""></li>
-                                <li class="splide__slide"><img class="w-full object-cover max-h-[460px]" src="{{ asset('storage/banner-unsplash.jpg') }}" alt=""></li>
+                                <li class="splide__slide"><img class="w-full object-cover max-h-[430px]" src="{{ asset('storage/banner-unsplash.jpg') }}" alt=""></li>
+                                <li class="splide__slide"><img class="w-full object-cover max-h-[430px]" src="{{ asset('storage/banner-unsplash.jpg') }}" alt=""></li>
+                                <li class="splide__slide"><img class="w-full object-cover max-h-[430px]" src="{{ asset('storage/banner-unsplash.jpg') }}" alt=""></li>
                             </ul>
                         </div>
                     </section>
@@ -158,11 +158,37 @@
                 <h2 class="font-bold text-center text-2xl md:text-4xl text-slate-800 uppercase mb-2 md:mb-5">sản phẩm nổi bật</h2>
                 <div class="text-center border-2 border-lime-400 w-1/4 mx-auto"></div>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            @for ($i = 0; $i < 8; $i++)
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-8">
+            @for ($i = 0; $i < 10; $i++)
                 <livewire:product-card />
             @endfor
             </div>
         </div>
+    </section>
+    <section class="mid-banner container my-6 md:my-8">
+        <div class="grid grid-rows-2 md:grid-cols-2 md:gap-x-8">
+            <img class="w-full object-cover max-h-24 md:max-h-48" src="{{ asset('storage/banner-unsplash.jpg') }}" alt="">
+            <img class="w-full object-cover max-h-24 md:max-h-48" src="{{ asset('storage/banner-unsplash.jpg') }}" alt="">
+        </div>
+    </section>
+    <section class="dietary-supplement-top container my-6 md:my-12">
+        <div class="mx-auto mb-8">
+            <h2 class="font-bold text-center text-2xl md:text-4xl text-slate-800 uppercase mb-2 md:mb-5">Thực phẩm chức năng</h2>
+            <div class="text-center border-2 border-lime-400 w-1/4 mx-auto"></div>
+        </div>
+        <section id="tpcn" class="splide">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <li class="splide__slide">
+                        <div class="relative">
+                            <div class="absolute bottom-2 right-8 md:bottom-8 md:right-8 animate-bounce">
+                                <a href="#" class="px-4 py-1 text-white text-base md:text-xl md:rounded-md bg-lime-500">Chi tiết</a>
+                            </div>
+                            <img class="h-auto aspect-[21/9] object-cover rounded-md" src="{{ asset('storage/Tobradex.png') }}" alt="">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
     </section>
 </div>

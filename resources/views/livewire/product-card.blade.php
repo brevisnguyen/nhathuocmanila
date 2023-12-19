@@ -1,6 +1,6 @@
 <div class="relative overflow-hidden group">
     <div class="product-detail absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:md:block">
-        <div class="mx-auto bg-white/80 hover:bg-white p-3">
+        <div class="mx-auto bg-white/80 hover:bg-white p-2">
             <a href="#" class="flex items-center justify-center gap-x-2 hover:text-lime-500"><i class="fa-solid fa-eye"></i>Chi tiết</a>
         </div>
     </div>

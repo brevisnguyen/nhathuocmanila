@@ -8,7 +8,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://kit.fontawesome.com/fdd48f8ac1.js" crossorigin="anonymous"></script>
     </head>
-    <body class="antialiased">
+    <body class="antialiased font-nunito">
         {{ $slot }}
     </body>
 </html>
