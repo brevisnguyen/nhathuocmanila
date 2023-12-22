@@ -16,7 +16,7 @@ use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
-    protected static ?string $navigationGroup = 'Blogs';
+    protected static ?string $navigationGroup = 'Trang web';
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationLabel = 'Bài viết';
     protected static ?string $recordTitleAttribute = 'name';
