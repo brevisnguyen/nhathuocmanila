@@ -70,11 +70,27 @@
                             </div>
                         </form>
                     </div>
-                    <div class="search-phone flex items-center justify-center">
+                    <div class="search-phone hidden md:flex items-center justify-center">
                         <div class="bg-slate-200 rounded-full mr-4 w-10 h-10 flex items-center justify-center text-lime-900"><i class="fa-solid fa-phone"></i></div>
                         <div class="grid grid-rows-2">
                             <span class="font-bold text-slate-950">0985 435 9999</span>
                             <span class="text-slate-500">Hỗ trợ 24/7</span>
+                        </div>
+                    </div>
+                    <div class="block md:hidden">
+                        <div class="my-4 grid grid-cols-3 gap-3 text-center items-stretch">
+                            <div class="bg-slate-100 rounded-md shadow-md flex flex-col items-center p-1">
+                                <img class="h-8 w-8" src="{{ asset('storage/can_mua_thuoc.png') }}" alt="">
+                                <p class="text-sm font-bold">Thuốc đa dạng</p>
+                            </div>
+                            <div class="bg-slate-100 rounded-md shadow-md flex flex-col items-center p-1">
+                                <img class="h-8 w-8" src="{{ asset('storage/tu_van_voi_duoc_sy.png') }}" alt="">
+                                <p class="text-sm font-bold">Dược sỹ tư vấn</p>
+                            </div>
+                            <div class="bg-slate-100 rounded-md shadow-md flex flex-col items-center p-1">
+                                <img class="h-8 w-8" src="{{ asset('storage/tim_nha_thuoc_gan_day.png') }}" alt="">
+                                <p class="text-sm font-bold text-wrap">Ship mọi nơi</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -159,14 +175,14 @@
                 <div class="text-center border-2 border-lime-400 w-1/4 mx-auto"></div>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-8">
-            @for ($i = 0; $i < 10; $i++)
-                <livewire:product-card />
-            @endfor
+                @for ($i = 0; $i
+                < 10; $i++) <livewire:product-card />
+                @endfor
             </div>
         </div>
     </section>
-    <section class="mid-banner container my-6 md:my-8">
-        <div class="grid grid-rows-2 md:grid-cols-2 md:gap-x-8">
+    <section class="mid-banner container px-0 md:px-8 my-6 md:my-8">
+        <div class="grid grid-rows-2 md:grid-rows-none md:grid-cols-2 md:gap-x-8">
             <img class="w-full object-cover max-h-24 md:max-h-48" src="{{ asset('storage/banner-unsplash.jpg') }}" alt="">
             <img class="w-full object-cover max-h-24 md:max-h-48" src="{{ asset('storage/banner-unsplash.jpg') }}" alt="">
         </div>
@@ -181,7 +197,7 @@
                 <ul class="splide__list">
                     <li class="splide__slide">
                         <div class="relative">
-                            <div class="absolute bottom-2 right-8 md:bottom-8 md:right-8 animate-bounce">
+                            <div class="absolute bottom-2 right-8 md:bottom-8 md:right-8 animate-bounce hover:animate-none">
                                 <a href="#" class="px-4 py-1 text-white text-base md:text-xl md:rounded-md bg-lime-500">Chi tiết</a>
                             </div>
                             <img class="h-auto aspect-[21/9] object-cover rounded-md" src="{{ asset('storage/Tobradex.png') }}" alt="">
@@ -190,5 +206,31 @@
                 </ul>
             </div>
         </section>
+    </section>
+    <section class="blogs container my-6 md:my-8">
+        <div class="mx-auto mb-8">
+            <h2 class="font-bold text-center text-2xl md:text-4xl text-slate-800 uppercase mb-2 md:mb-5">chia sẻ kiến thức</h2>
+            <div class="text-center border-2 border-lime-400 w-1/4 mx-auto"></div>
+        </div>
+        <div class="mt-4 flex flex-wrap md:gap-5">
+            <div class="col-left basis-[100%] md:basis-[717px]">
+                <a class="block" href="#">
+                    <img class="!md:max-h-96 max-h-[380px] w-full rounded-lg object-fill aspect-video" src="{{ asset('posts/featured-image-WQnsWh2sbJJOEXJ7bSBadoDTCizzyT-metaQmlkaXZpdEFELnBuZw==-.png') }}" alt="">
+                </a>
+                <div class="pt-[12px]">
+                    <a class="mt-1 md:mt-2 block" href="#">
+                        <h3 class="text-lg md:text-2xl font-bold">Tiêu đề bài viết</h3>
+                    </a>
+                    <a class="mt-1 md:mt-2 block" href="#">
+                        <p class="text-sm md:text-base line-clamp-2 md:line-clamp-3 text-ellipsis">Một phần nội dung được hiển thị ở đây, nó sẽ có 2 hàng và được cắt nếu quá dài</p>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-4 flex-1 md:col-span-2 md:mt-0">
+                @for ($i = 0; $i
+                < 5; $i++) <livewire:post-card :key="$i" />
+                @endfor
+            </div>
+        </div>
     </section>
 </div>

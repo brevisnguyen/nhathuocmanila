@@ -61,15 +61,7 @@
             </div>
             <div class="search md:col-span-9 md:px-3 mb-7">
                 <div class="search-form flex flex-col md:flex-row justify-between mb-4 md:mb-8">
-                    <div class="w-full md:w-3/4">
-                        <form action="search">
-                            <div class="flex items-center relative h-12 border border-solid border-gray-300">
-                                <div class="font-bold ml-5 mr-8 hidden md:block">Tất cả danh mục</div>
-                                <input type="text" placeholder="Bạn muốn tìm thuốc nào?" class="border-none placeholder:text-gray-400 outline-none ring-0 grow px-4">
-                                <button type="submit" class="bg-lime-700 text-white px-3 md:px-6 h-full items-end">Tìm kiếm</button>
-                            </div>
-                        </form>
-                    </div>
+                    <livewire:product-search />
                     <div class="search-phone flex items-center justify-center mt-2">
                         <div class="bg-slate-200 rounded-full mr-4 w-10 h-10 flex items-center justify-center text-lime-900"><i class="fa-solid fa-phone"></i></div>
                         <div class="grid grid-rows-2">

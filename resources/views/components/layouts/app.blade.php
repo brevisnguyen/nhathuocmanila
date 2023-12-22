@@ -10,5 +10,6 @@
     </head>
     <body class="antialiased font-nunito">
         {{ $slot }}
+        <livewire:footer />
     </body>
 </html>
