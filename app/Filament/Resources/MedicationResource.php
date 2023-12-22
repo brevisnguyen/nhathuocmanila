@@ -34,14 +34,17 @@ class MedicationResource extends Resource
                             ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
                             ->maxLength(255),
                         Forms\Components\TextInput::make('slug')
-                            ->required(),
+                            ->required()
+                            ->hint('Slug sẽ tự đồng điền'),
                         Forms\Components\Select::make('categories')
                             ->label('Danh mục thuốc')
                             ->required()
                             ->multiple()
                             ->relationship('categories', 'name')
-                            ->preload()
-                            ->columnSpan(2),
+                            ->preload(),
+                        Forms\Components\TagsInput::make('components')
+                            ->label('Thành phần')
+                            ->placeholder('Nhập thành phần chính của thuốc'),
                         Forms\Components\TextInput::make('inventory')
                             ->label('Số lượng trong kho')
                             ->numeric()

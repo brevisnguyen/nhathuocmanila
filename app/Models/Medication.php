@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +13,9 @@ class Medication extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'price', 'cost', 'unit_id', 'inventory', 'sold_count', 'image', 'description'];
+    protected $fillable = ['name', 'slug', 'components', 'price', 'cost', 'unit_id', 'inventory', 'sold_count', 'image', 'description'];
+
+    protected $casts = ['components' => 'array'];
 
     public function categories(): BelongsToMany
     {
@@ -42,5 +45,20 @@ class Medication extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function scopeHasName(Builder $query, $search)
+    {
+        $query->where('name', 'LIKE', '%' . $search . '%');
+    }
+
+    public function scopeHasComponent(Builder $query, $search)
+    {
+        $query->orWhere('components', 'LIKE', '%' . $search . '%');
+    }
+
+    public function getImage()
+    {
+        return Storage::disk('medicines')->url($this->image);
     }
 }

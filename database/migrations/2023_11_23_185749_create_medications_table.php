@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
+            $table->json('components')->nullable();
             $table->decimal('price')->nullable();
             $table->decimal('cost')->nullable();
             $table->foreignId('unit_id')->constrained();
