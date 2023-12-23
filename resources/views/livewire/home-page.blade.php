@@ -51,12 +51,11 @@
                     </div>
                 </div>
                 <ul x-show="open" x-transition.origin.top.left class="py-3 pl-10 border border-solid border-gray-200 text-slate-800">
-                    <li class="py-2 cursor-pointer hover:ml-2 hover:text-lime-800 hover:transition-all hover:duration-200">Danh mục 1</li>
-                    <li class="py-2 cursor-pointer hover:ml-2 hover:text-lime-800 hover:transition-all hover:duration-200">Danh mục 2</li>
-                    <li class="py-2 cursor-pointer hover:ml-2 hover:text-lime-800 hover:transition-all hover:duration-200">Danh mục 3</li>
-                    <li class="py-2 cursor-pointer hover:ml-2 hover:text-lime-800 hover:transition-all hover:duration-200">Danh mục 4</li>
-                    <li class="py-2 cursor-pointer hover:ml-2 hover:text-lime-800 hover:transition-all hover:duration-200">Danh mục 5</li>
-                    <li class="py-2 cursor-pointer hover:ml-2 hover:text-lime-800 hover:transition-all hover:duration-200">Danh mục 6</li>
+                    @foreach($categories as $category)
+                    <li class="py-2 cursor-pointer hover:ml-2 hover:text-lime-800 hover:transition-all hover:duration-200">
+                        <a href="{{ $category->getUrl() }}">{{ $category->name }}</a>
+                    </li>
+                    @endforeach
                 </ul>
             </div>
             <div class="search md:col-span-9 md:px-3">
@@ -175,9 +174,9 @@
                 <div class="text-center border-2 border-lime-400 w-1/4 mx-auto"></div>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-8">
-                @for ($i = 0; $i
-                < 10; $i++) <livewire:product-card />
-                @endfor
+                @foreach($products as $product)
+                <livewire:product-card :product="$product" :key="$product->id" />
+                @endforeach
             </div>
         </div>
     </section>
@@ -213,23 +212,24 @@
             <div class="text-center border-2 border-lime-400 w-1/4 mx-auto"></div>
         </div>
         <div class="mt-4 flex flex-wrap md:gap-5">
+            <?php $first_post = $posts->first(); $posts = $posts->skip(1);?>
             <div class="col-left basis-[100%] md:basis-[717px]">
-                <a class="block" href="#">
-                    <img class="!md:max-h-96 max-h-[380px] w-full rounded-lg object-fill aspect-video" src="{{ asset('posts/featured-image-WQnsWh2sbJJOEXJ7bSBadoDTCizzyT-metaQmlkaXZpdEFELnBuZw==-.png') }}" alt="">
+                <a class="block" href="{{ $first_post->getUrl() }}">
+                    <img src="{{ $first_post->getImage() }}" alt="{{ $first_post->title . '-' . config('app.name') }}" class="!md:max-h-96 max-h-[380px] w-full rounded-lg object-fill aspect-video">
                 </a>
                 <div class="pt-[12px]">
-                    <a class="mt-1 md:mt-2 block" href="#">
-                        <h3 class="text-lg md:text-2xl font-bold">Tiêu đề bài viết</h3>
+                    <a class="mt-1 md:mt-2 block" href="{{ $first_post->getUrl() }}">
+                        <h3 class="text-lg md:text-2xl font-bold">{{ $first_post->title }}</h3>
                     </a>
-                    <a class="mt-1 md:mt-2 block" href="#">
-                        <p class="text-sm md:text-base line-clamp-2 md:line-clamp-3 text-ellipsis">Một phần nội dung được hiển thị ở đây, nó sẽ có 2 hàng và được cắt nếu quá dài</p>
+                    <a class="mt-1 md:mt-2 block" href="{{ $first_post->getUrl() }}">
+                        <p class="text-sm md:text-base line-clamp-2 md:line-clamp-3 text-ellipsis">{{ $first_post->content }}</p>
                     </a>
                 </div>
             </div>
             <div class="mt-4 flex-1 md:col-span-2 md:mt-0">
-                @for ($i = 0; $i
-                < 5; $i++) <livewire:post-card :key="$i" />
-                @endfor
+            @foreach($posts as $i => $post)
+                <livewire:post-card :post="$post" :key="$post->id" />
+            @endforeach
             </div>
         </div>
     </section>
