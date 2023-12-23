@@ -6,11 +6,11 @@ use Livewire\Component;
 
 class ProductCard extends Component
 {
-    // public $product;
+    public $product;
 
-    public function mount($product = null)
+    public function mount($product)
     {
-        // $this->product = $product;
+        $this->product = $product;
     }
 
     public function render()

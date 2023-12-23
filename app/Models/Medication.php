@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Medication extends Model
 {
@@ -57,8 +58,22 @@ class Medication extends Model
         $query->orWhere('components', 'LIKE', '%' . $search . '%');
     }
 
+    public function scopePopular(Builder $query)
+    {
+        $query->orderByDesc('sold_count')->take(10);
+    }
+
     public function getImage()
     {
-        return Storage::disk('medicines')->url($this->image);
+        if (Str::startsWith($this->image, ['http://', 'https://', '//'])) {
+            return $this->image;
+        } else {
+            return Storage::disk('medicines')->url($this->image);
+        }
+    }
+
+    public function getUrl(): string
+    {
+        return route('products', ['medication' => $this->slug]);
     }
 }

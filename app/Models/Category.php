@@ -21,4 +21,9 @@ class Category extends Model
     {
         return 'slug';
     }
+
+    public function getUrl(): string
+    {
+        return route('categories', ['category' => $this->slug]);
+    }
 }
