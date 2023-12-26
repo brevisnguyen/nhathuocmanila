@@ -18,6 +18,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomePage::class)->name('homepage');
-Route::get('/danh-muc/{category:slug}', Category::class)->name('categories');
-Route::get('/thuoc/{medication:slug}', Medication::class)->name('products');
-Route::get('/bai-viet/{post:slug}', Post::class)->name('posts');
+Route::get('/danh-muc/{category}', Category::class)->name('categories');
+Route::get('/thuoc/{medicine}', Medication::class)->name('products');
+Route::get('/bai-viet/{post}', Post::class)->name('posts');
