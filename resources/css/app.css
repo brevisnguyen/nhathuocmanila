@@ -11,3 +11,15 @@
 .splide__pagination__page.is-active {
     @apply bg-lime-600 !important;
 }
+.splide__r_arrow {
+    @apply bg-slate-200 opacity-90 h-11 w-11;
+}
+.splide__r_arrow svg {
+    @apply fill-blue-500;
+}
+.splide__r_arrow--next {
+    @apply -right-4;
+}
+.splide__r_arrow--prev {
+    @apply -left-4;
+}

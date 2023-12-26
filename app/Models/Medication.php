@@ -74,6 +74,6 @@ class Medication extends Model
 
     public function getUrl(): string
     {
-        return route('products', ['medication' => $this->slug]);
+        return route('products', ['medicine' => $this->slug]);
     }
 }
