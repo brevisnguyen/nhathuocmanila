@@ -1,4 +1,4 @@
-<div class="bg-gray-100">
+<div class="bg-gray-100 border-t border-gray-300">
     <div class="container pb-3 md:pb-6 pt-6 md:pt-10">
         <div class="footer-top block lg:grid lg:grid-cols-2">
             <div class="logo w-full">

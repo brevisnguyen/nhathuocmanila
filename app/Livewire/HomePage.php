@@ -10,13 +10,11 @@ use Livewire\Component;
 
 class HomePage extends Component
 {
-    public $categories;
     public $products;
     public $posts;
 
     public function mount()
     {
-        $this->categories = Cache::rememberForever('categories', fn() => Category::take(10)->get());
         $this->products = Cache::rememberForever('products', fn() => Medication::popular()->get());
         $this->posts = Post::latest('updated_at')->take(6)->get();
     }
