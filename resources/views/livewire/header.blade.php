@@ -62,7 +62,10 @@
                 </ul>
             </div>
             <div class="search md:col-span-9 md:px-3">
-                <div class="search-form flex flex-col md:flex-row justify-between">
+                <div class="search-form flex flex-col md:flex-row justify-between"
+                    x-data="{show: true}"
+                    x-init="show='{{ Illuminate\Support\Facades\Route::currentRouteName() }}' == 'homepage'"
+                >
                     <div class="w-full md:w-3/4">
                         <form action="search">
                             <div class="flex items-center relative h-12 border border-solid border-gray-300">
@@ -79,7 +82,7 @@
                             <span class="text-slate-500">Hỗ trợ 24/7</span>
                         </div>
                     </div>
-                    <div class="block md:hidden">
+                    <div class="block md:hidden" x-show="show">
                         <div class="my-4 grid grid-cols-3 gap-3 text-center items-stretch">
                             <div class="bg-slate-100 rounded-md shadow-md flex flex-col items-center p-1">
                                 <img class="h-8 w-8" src="{{ asset('storage/can_mua_thuoc.png') }}" alt="">
