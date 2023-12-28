@@ -45,7 +45,9 @@
                 x-init="open=window.innerWidth > 768 && '{{ Illuminate\Support\Facades\Route::currentRouteName() }}' == 'homepage'"
             >
                 <div class="categories-all bg-lime-600 text-white uppercase font-extrabold px-4 py-3">
-                    <div class="flex justify-between items-center cursor-pointer" x-on:click="open = !open">
+                    <div class="flex justify-between items-center cursor-pointer"
+                        x-on:click="open = !open"
+                    >
                         <div>
                             <i class="fa-solid fa-bars-staggered ml-4 mr-2"></i>
                             <span>Danh mục</span>
@@ -53,7 +55,10 @@
                         <i class="fa-solid fa-caret-down text-end"></i>
                     </div>
                 </div>
-                <ul x-show="open" x-transition.origin.top.left class="p-3 border border-solid border-gray-200 text-slate-800 bg-white absolute w-full z-10">
+                <ul class="p-3 border border-solid border-gray-200 text-slate-800 bg-white absolute w-full z-10"
+                    x-show="open"
+                    x-transition.origin.top.left
+                >
                     @foreach($categories as $category)
                     <li class="py-2 cursor-pointer hover:ml-2 hover:text-lime-800 hover:transition-all hover:duration-200">
                         <a href="{{ $category->getUrl() }}">{{ $category->name }}</a>
