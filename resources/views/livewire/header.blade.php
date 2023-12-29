@@ -1,4 +1,4 @@
-<div>
+<div class="shadow-md">
     <header>
         <div class="header-top hidden md:block w-full bg-neutral-100 text-slate-800">
             <div class="container py-3 flex flex-wrap justify-between">
@@ -38,7 +38,7 @@
             </div>
         </div>
     </header>
-    <div class="container mb-4 mt-3">
+    <div class="container mt-3 pb-4">
         <div class="flex flex-col gap-y-7 md:grid md:grid-cols-12 gap-x-3">
             <div class="md:col-span-3 relative"
                 x-data="{open: true}"
