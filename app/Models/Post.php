@@ -26,4 +26,9 @@ class Post extends Model
             return Storage::disk('medicines')->url($this->featured_image);
         }
     }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }
