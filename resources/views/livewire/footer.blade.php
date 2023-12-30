@@ -5,7 +5,8 @@
                 <img class="h-14" src="{{ asset('storage/logo-nha-thuoc-manila.png') }}" alt="">
                 <h4 class="slogan mt-5 md:mt-10">Chuyên thuốc theo toa, thuốc đặc trị, tư vấn miễn phí.</h4>
                 <h4 class="phone text-base text-indigo-500"><i class="fa-solid fa-square-phone"></i>&nbsp;<span class="font-bold">0985 435 9999</span></h4>
-                <div class="socials flex gap-x-6 items-center mt-4">
+                <h4 class="font-semibold text-base mt-4 mb-2">Tìm chúng tớ trên</h4>
+                <div class="socials flex gap-x-6 items-center">
                     <a href="#" class="hover:text-white hover:bg-lime-500 h-10 w-10 flex items-center justify-center rounded-full border border-solid border-gray-200 bg-white text-gray-600"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="#" class="hover:text-white hover:bg-lime-500 h-10 w-10 flex items-center justify-center rounded-full border border-solid border-gray-200 bg-white text-gray-600"><i class="fa-brands fa-tiktok"></i></a>
                     <a href="#" class="hover:text-white hover:bg-lime-500 h-10 w-10 flex items-center justify-center rounded-full border border-solid border-gray-200 bg-white text-gray-600"><i class="fa-solid fa-paper-plane"></i></a>

@@ -5,13 +5,13 @@
                 <div class="header mb-4 md:mb-8">
                     <h1 class="title text-3xl md:text-4xl font-semibold">{{ $post->title }}</h1>
                     <div class="flex mt-5 items-center justify-between">
-                        <div class="flex gap-x-3 items-center">
+                        <div class="flex gap-x-2 items-center">
                             <div class="w-9 h-9 rounded-full flex bg-gray-200 text-indigo-500 text-2xl"><i class="fa-solid fa-user-doctor m-auto"></i></div>
                             <p class="text-gray-400">bởi <span class="text-gray-600">Admin</span></p>
                             <span>-</span>
                             <p>{{ $post->updated_at->diffForHumans() }}</p>
                         </div>
-                        <p class="text-base mr-2 md:mr-8">{{ $post->views }}&nbsp;lượt đọc</p>
+                        <p class="text-base text-lime-600 md:mr-8 flex items-center"><i class="fa-regular fa-eye mr-1"></i>{{ $post->views }}&nbsp;<span class="hidden md:block">lượt đọc</span></p>
                     </div>
                 </div>
                 <div class="featured-img">
