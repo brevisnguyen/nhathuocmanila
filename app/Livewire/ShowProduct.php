@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Models\Medication as Medicine;
 use Livewire\Component;
 
-class Medication extends Component
+class ShowProduct extends Component
 {
     public Medicine $medicine;
     public $relates;
@@ -33,6 +33,6 @@ class Medication extends Component
 
     public function render()
     {
-        return view('livewire.medication');
+        return view('livewire.show-product');
     }
 }

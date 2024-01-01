@@ -15,6 +15,16 @@ class Header extends Component
         $this->categories = Cache::rememberForever('categories', fn() => Category::take(10)->get());
     }
 
+    protected function getMenu()
+    {
+        return array(
+            ['title' => 'Trang chủ', 'url' => route('home')],
+            ['title' => 'Thuốc', 'url' => route('home')],
+            ['title' => 'Tin tức', 'url' => route('home')],
+            ['title' => 'Giới thiệu', 'url' => route('home')],
+        );
+    }
+
     public function render()
     {
         return view('livewire.header');

@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Models\Post as Blog;
 use Livewire\Component;
 
-class Post extends Component
+class ShowPost extends Component
 {
     public $post;
 
@@ -18,7 +18,7 @@ class Post extends Component
     {
         $posts = Blog::where('id', '<>', $this->post->id)->take(6)->get();
 
-        return view('livewire.post', [
+        return view('livewire.show-post', [
             'posts' => $posts,
         ]);
     }

@@ -1,9 +1,17 @@
 <?php
 
-use App\Livewire\Category;
+use App\Livewire\AboutUs;
+use App\Livewire\CategoryIndex;
+use App\Livewire\DeliveryPolicy;
 use App\Livewire\HomePage;
-use App\Livewire\Medication;
-use App\Livewire\Post;
+use App\Livewire\PaymentPolicy;
+use App\Livewire\PostIndex;
+use App\Livewire\ProductIndex;
+use App\Livewire\ShowCart;
+use App\Livewire\ShowCategory;
+use App\Livewire\ShowOrder;
+use App\Livewire\ShowPost;
+use App\Livewire\ShowProduct;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +25,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', HomePage::class)->name('homepage');
-Route::get('/danh-muc/{category}', Category::class)->name('categories');
-Route::get('/thuoc/{medicine}', Medication::class)->name('products');
-Route::get('/bai-viet/{post}', Post::class)->name('posts');
+Route::get('/', HomePage::class)->name('home');
+
+Route::get('/danh-muc/{category}', ShowCategory::class)->name('category.show');
+Route::get('/danh-muc', CategoryIndex::class)->name('category.index');
+
+Route::get('/thuoc/{medicine}', ShowProduct::class)->name('product.show');
+Route::get('/thuoc', ProductIndex::class)->name('product.index');
+
+Route::get('/bai-viet/{post}', ShowPost::class)->name('post.show');
+Route::get('/bai-viet', PostIndex::class)->name('post.index');
+
+Route::get('/gio-hang', ShowCart::class)->name('cart.show');
+Route::get('/order', ShowOrder::class)->name('order.show');
+
+Route::get('/gioi-thieu', AboutUs::class)->name('about_us');
+Route::get('/chinh-sach-giao-hang', DeliveryPolicy::class)->name('delivery');
+Route::get('/chinh-sach-thanh-toan', PaymentPolicy::class)->name('payment');

@@ -20,17 +20,17 @@
         <div class="container">
             <div class="grid grid-cols-12 items-center">
                 <div class="logo col-span-9 md:col-span-3 px-2 py-3">
-                    <a href="{{ route('homepage') }}"><img src="{{ asset('storage/logo-nha-thuoc-manila.png') }}" alt="logo nha thuoc manila"></a>
+                    <a href="{{ route('home') }}"><img src="{{ asset('storage/logo-nha-thuoc-manila.png') }}" alt="logo nha thuoc manila"></a>
                 </div>
                 <div class="nav col-span-6 px-2 mx-auto hidden md:block">
                     <nav class="py-4 uppercase font-bold flex gap-x-10">
-                        <a href="{{ route('homepage') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('homepage')])>home</a>
-                        <a href="{{ route('homepage') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('share')])>share</a>
-                        <a href="{{ route('homepage') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('contact')])>contact</a>
+                        <a href="{{ route('home') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('homepage')])>home</a>
+                        <a href="{{ route('home') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('share')])>share</a>
+                        <a href="{{ route('home') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('contact')])>contact</a>
                     </nav>
                 </div>
                 <div class="contact col-span-3 px-2 text-right">
-                    <a href="{{ route('homepage') }}" class="hover:text-lime-600">
+                    <a href="{{ route('home') }}" class="hover:text-lime-600">
                         <span class="mr-1 hidden md:inline-block">Giỏ hàng</span>
                         <i class="fa-solid fa-cart-shopping text-2xl md:text-base"></i>
                     </a>
