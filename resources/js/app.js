@@ -11,15 +11,10 @@ if (heroBanner != undefined) {
         type: "fade",
         rewind: true,
         autoplay: true,
-    }).mount();
-}
-
-const tpcnBanner = document.getElementById("tpcn");
-if (tpcnBanner != undefined) {
-    new Splide("#tpcn", {
-        autoplay: true,
-        perPage: 1,
-        rewind: true,
+        classes: {
+            prev  : 'splide__arrow--prev splide__r_arrow splide__r_arrow--prev',
+            next  : 'splide__arrow--next splide__r_arrow splide__r_arrow--next',
+        },
     }).mount();
 }
 
