@@ -2,20 +2,20 @@
 
 namespace App\Livewire;
 
-use App\Models\Category;
 use App\Models\Medication;
 use App\Models\Post;
-use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
 class HomePage extends Component
 {
-    public $products;
     public $posts;
+    public $hot_products;
+    public $newest_products;
 
     public function mount()
     {
-        $this->products = Cache::rememberForever('products', fn() => Medication::popular()->get());
+        $this->hot_products = Medication::popular()->take(20)->get();
+        $this->newest_products = Medication::where('inventory', '>', 0)->latest('updated_at')->take(20)->get();
         $this->posts = Post::latest('updated_at')->take(6)->get();
     }
 

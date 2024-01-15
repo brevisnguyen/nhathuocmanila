@@ -43,7 +43,7 @@
                                 </td>
                             </tr>
                             <tr class="block md:flex md:mb-3">
-                                <td class="w-[155px] flex text-left">Xuất sứ</td>
+                                <td class="w-[155px] flex text-left">Xuất xứ</td>
                                 <td class="mt-1 md:mt-0 flex text-left">Việt Nam</td>
                             </tr>
                         </tbody>
