@@ -12,7 +12,7 @@ class Header extends Component
 
     public function mount()
     {
-        $this->categories = Cache::rememberForever('categories', fn() => Category::take(10)->get());
+        $this->categories = Cache::rememberForever('categories', fn() => Category::all());
     }
 
     protected function getMenu()

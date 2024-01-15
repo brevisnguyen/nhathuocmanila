@@ -1,4 +1,4 @@
-<div class="shadow-md">
+<div class="">
     <header>
         <div class="header-top hidden md:block w-full bg-neutral-100 text-slate-800">
             <div class="container py-3 flex flex-wrap justify-between">
@@ -22,17 +22,19 @@
                 <div class="logo col-span-9 md:col-span-3 px-2 py-3">
                     <a href="{{ route('home') }}"><img src="{{ asset('storage/logo-nha-thuoc-manila.png') }}" alt="logo nha thuoc manila"></a>
                 </div>
-                <div class="nav col-span-6 px-2 mx-auto hidden md:block">
-                    <nav class="py-4 uppercase font-bold flex gap-x-10">
-                        <a href="{{ route('home') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('homepage')])>home</a>
-                        <a href="{{ route('home') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('share')])>share</a>
-                        <a href="{{ route('home') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('contact')])>contact</a>
+                <div class="nav col-span-7 px-2 mx-auto hidden md:block">
+                    <nav class="py-4 uppercase font-bold flex md:gap-x-3 lg:gap-x-6 xl:gap-x-10 md:text-sm lg:text-base">
+                        <a href="{{ route('home') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('home')])>trang chủ</a>
+                        <a href="{{ route('about_us') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('about_us')])>giới thiệu</a>
+                        <a href="{{ route('post.index') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('post.index')])>tin tức</a>
+                        <a href="{{ route('order.show') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('order.show')])>đơn hàng</a>
+                        <a href="{{ route('delivery') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('delivery')])>trợ giúp</a>
                     </nav>
                 </div>
-                <div class="contact col-span-3 px-2 text-right">
+                <div class="contact col-span-2 px-2 text-right">
                     <a href="{{ route('home') }}" class="hover:text-lime-600">
                         <span class="mr-1 hidden md:inline-block">Giỏ hàng</span>
-                        <i class="fa-solid fa-cart-shopping text-2xl md:text-base"></i>
+                        <i class="fa-solid fa-cart-shopping text-2xl md:text-base text-rose-500"></i>
                     </a>
                 </div>
             </div>
@@ -42,7 +44,7 @@
         <div class="flex flex-col gap-y-7 md:grid md:grid-cols-12 gap-x-3">
             <div class="md:col-span-3 relative"
                 x-data="{open: true}"
-                x-init="open=window.innerWidth > 768 && '{{ Illuminate\Support\Facades\Route::currentRouteName() }}' == 'homepage'"
+                x-init="open=window.innerWidth > 768 && '{{ Illuminate\Support\Facades\Route::currentRouteName() }}' == 'home'"
             >
                 <div class="categories-all bg-lime-600 text-white uppercase font-extrabold px-4 py-3">
                     <div class="flex justify-between items-center cursor-pointer"
@@ -55,13 +57,13 @@
                         <i class="fa-solid fa-caret-down text-end"></i>
                     </div>
                 </div>
-                <ul class="p-3 border border-solid border-gray-200 text-slate-800 bg-white absolute w-full z-10"
+                <ul class="p-3 border border-solid border-gray-200 text-slate-800 bg-white absolute w-full z-10 max-h-96 overflow-y-scroll scrollbar"
                     x-show="open"
                     x-transition.origin.top.left
                 >
                     @foreach($categories as $category)
-                    <li class="py-2 cursor-pointer hover:ml-2 hover:text-lime-800 hover:transition-all hover:duration-200">
-                        <a href="{{ $category->getUrl() }}">{{ $category->name }}</a>
+                    <li class="flex py-2 cursor-pointer hover:ml-2 hover:text-lime-800 hover:transition-all hover:duration-200">
+                        <a href="{{ $category->getUrl() }}" class="w-full">{{ $category->name }}</a>
                     </li>
                     @endforeach
                 </ul>
@@ -71,7 +73,7 @@
                     x-data="{show: true}"
                     x-init="show='{{ Illuminate\Support\Facades\Route::currentRouteName() }}' == 'homepage'"
                 >
-                    <div class="w-full md:w-3/4">
+                    <div class="w-full lg:w-3/4">
                         <form action="search">
                             <div class="flex items-center relative h-12 border border-solid border-gray-300">
                                 <div class="font-bold ml-5 mr-8 hidden md:block">Tất cả danh mục</div>
@@ -80,7 +82,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="search-phone hidden md:flex items-center justify-center">
+                    <div class="search-phone hidden lg:flex items-center justify-center">
                         <div class="bg-slate-200 rounded-full mr-4 w-10 h-10 flex items-center justify-center text-lime-900"><i class="fa-solid fa-phone"></i></div>
                         <div class="grid grid-rows-2">
                             <span class="font-bold text-slate-950">0985 435 9999</span>
