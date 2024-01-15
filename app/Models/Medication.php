@@ -60,7 +60,7 @@ class Medication extends Model
 
     public function scopePopular(Builder $query)
     {
-        $query->orderByDesc('sold_count')->take(10);
+        $query->where('inventory', '>', 0)->orderByDesc('sold_count');
     }
 
     public function getImage()
@@ -74,6 +74,6 @@ class Medication extends Model
 
     public function getUrl(): string
     {
-        return route('products', ['medicine' => $this->slug]);
+        return route('product.show', ['medicine' => $this->slug]);
     }
 }

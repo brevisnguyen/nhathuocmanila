@@ -15,7 +15,7 @@ class Post extends Model
 
     public function getUrl(): string
     {
-        return route('posts', ['post' => $this->slug]);
+        return route('post.show', ['post' => $this->slug]);
     }
 
     public function getImage(): string

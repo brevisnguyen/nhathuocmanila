@@ -37,7 +37,7 @@ Route::get('/bai-viet/{post}', ShowPost::class)->name('post.show');
 Route::get('/bai-viet', PostIndex::class)->name('post.index');
 
 Route::get('/gio-hang', ShowCart::class)->name('cart.show');
-Route::get('/order', ShowOrder::class)->name('order.show');
+Route::get('/don-hang', ShowOrder::class)->name('order.show');
 
 Route::get('/gioi-thieu', AboutUs::class)->name('about_us');
 Route::get('/chinh-sach-giao-hang', DeliveryPolicy::class)->name('delivery');
