@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -11,20 +12,26 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'featured_image', 'content', 'views'];
+    protected $fillable = ['user_id', 'title', 'slug', 'image', 'content', 'views'];
 
-    public function getUrl(): string
+    protected function url(): Attribute
     {
-        return route('post.show', ['post' => $this->slug]);
+        return Attribute::make(
+            get: fn() => route('product', ['product' => $this->slug])
+        );
     }
 
-    public function getImage(): string
+    protected function image(): Attribute
     {
-        if (Str::startsWith($this->featured_image, ['http://', 'https://', '//'])) {
-            return $this->featured_image;
-        } else {
-            return Storage::disk('medicines')->url($this->featured_image);
-        }
+        return Attribute::make(
+            get: function (string $url) {
+                if (\Str::startsWith($this->image, ['http://', 'https://', '//'])) {
+                    return $this->image;
+                } else {
+                    return Storage::disk('posts')->url($this->image);
+                }
+            }
+        );
     }
 
     public function getRouteKeyName(): string

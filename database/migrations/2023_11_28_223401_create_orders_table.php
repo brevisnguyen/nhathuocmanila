@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('customer');
-            $table->string('phone')->nullable();
+            $table->foreignId('user_id')->constrained();
+            $table->string('phone');
+            $table->string('address');
+            $table->string('payment');
+            $table->string('status');
+            $table->string('attachments', 512)->nullable();
             $table->string('description')->nullable();
-            $table->string('payment_method');
-            $table->decimal('total_amount')->default(0);
+            $table->decimal('subtotal')->default(0);
+            $table->decimal('total')->default(0);
             $table->timestamps();
         });
     }

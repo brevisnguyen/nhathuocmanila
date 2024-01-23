@@ -2,30 +2,40 @@
 
 namespace App\Models;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['customer', 'phone', 'payment_method', 'total_amount'];
+    protected $fillable = [
+        'user_id',
+        'phone',
+        'address',
+        'payment',
+        'status',
+        'description',
+        'attachments',
+        'subtotal',
+        'total'
+    ];
 
-    public function medications(): BelongsToMany
+    protected $casts = [
+        'attachments' => 'array',
+        'status' => Status::class
+    ];
+
+    public function user(): BelongsTo
     {
-        return $this->belongsToMany(Medication::class, 'order_medication')->withPivot(['quantity', 'amount']);
+        return $this->belongsTo(User::class);
     }
 
-    public function orderMedications(): HasMany
+    public function items(): HasMany
     {
-        return $this->hasMany(OrderMedication::class);
-    }
-
-    public function setTotalAmount()
-    {
-        $this->total_amount = $this->medications()->sum('amount');
-        $this->save();
+        return $this->hasMany(OrderItem::class);
     }
 }
