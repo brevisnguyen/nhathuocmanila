@@ -21,17 +21,9 @@ class DatabaseSeeder extends Seeder
     {
         User::create([
             'name' => 'Brevis',
-            'password' => Hash::make('admin123'),
-            'email' => 'brevisnguyen@example.com',
+            'email' => 'brevisnguyen@gmail.com',
+            'password' => 'admin',
+            'role' => 'admin'
         ]);
-
-        Medication::factory()
-            ->has(Category::factory()->count(3))
-            ->for(Unit::factory())
-            ->count(10)
-            ->create();
-        Post::factory()
-            ->count(20)
-            ->create();
     }
 }

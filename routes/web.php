@@ -27,8 +27,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomePage::class)->name('home');
 
-Route::get('/danh-muc/{category}', ShowCategory::class)->name('category.show');
-Route::get('/danh-muc', CategoryIndex::class)->name('category.index');
+Route::get('/danh-muc/{category}', ShowCategory::class)->name('category');
 
 Route::get('/thuoc/{medicine}', ShowProduct::class)->name('product.show');
 Route::get('/thuoc', ProductIndex::class)->name('product.index');

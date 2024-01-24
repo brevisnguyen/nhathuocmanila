@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -11,9 +10,6 @@ use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
@@ -30,11 +26,20 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label('Tên danh mục')
                     ->required()
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->live(debounce: 500, onBlur: true)
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state)))
                     ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
-                    ->required(),
-            ]);
+                Forms\Components\TextInput::make('slug')->readOnly(),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('image')
+                    ->label('Hình ảnh')
+                    ->disk('categories')
+                    ->image()
+                    ->collection('categories')
+                    ->imageEditor()
+                    ->maxSize(1024)
+                    ->orientImagesFromExif(false)
+                    ->fetchFileInformation(false)
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -42,12 +47,29 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-            ])
-            ->filters([
-                //
+                    ->label('Tên danh mục')
+                    ->weight(\Filament\Support\Enums\FontWeight::Bold)
+                    ->copyable()
+                    ->copyMessage('Sao chép tên danh mục thành công!'),
+                Tables\Columns\TextColumn::make('products_count')
+                        ->counts('products')
+                        ->label('Số lượng sản phẩm')
+                        ->sortable(),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')
+                    ->label('Hình ảnh')
+                    ->collection('categories')
+                    ->conversion('thumb')
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\Action::make('link')
+                        ->label('Xem')
+                        ->url(fn (Category $category): string => route('category', $category))
+                        ->openUrlInNewTab()
+                        ->icon('heroicon-m-link')
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -58,9 +80,7 @@ class CategoryResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Category extends Model
+class Category extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $fillable = ['name', 'slug', 'image'];
 
@@ -31,16 +33,18 @@ class Category extends Model
         );
     }
 
-    protected function image(): Attribute
+    public function registerMediaConversions(Media $media = null): void
     {
-        return Attribute::make(
-            get: function (string $url) {
-                if (\Str::startsWith($this->image, ['http://', 'https://', '//'])) {
-                    return $this->image;
-                } else {
-                    return Storage::disk('categories')->url($this->image);
-                }
-            }
-        );
+        $this->addMediaConversion('thumb')
+            ->width(100)
+            ->height(100);
+
+        $this->addMediaConversion('medium')
+            ->width(300)
+            ->height(300);
+
+        $this->addMediaConversion('large')
+            ->width(800)
+            ->height(800);
     }
 }
