@@ -56,10 +56,18 @@ return [
             'throw' => false,
         ],
 
-        'medicines' => [
+        'products' => [
             'driver' => 'local',
-            'root' => storage_path('app/medicines'),
-            'url' => env('APP_URL').'/medicines',
+            'root' => storage_path('app/products'),
+            'url' => env('APP_URL').'/storage/products',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'categories' => [
+            'driver' => 'local',
+            'root' => storage_path('app/categories'),
+            'url' => env('APP_URL').'/storage/categories',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -67,7 +75,7 @@ return [
         'posts' => [
             'driver' => 'local',
             'root' => storage_path('app/posts'),
-            'url' => env('APP_URL').'/posts',
+            'url' => env('APP_URL').'/storage/posts',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -86,8 +94,9 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('medicines') => storage_path('app/medicines'),
-        public_path('posts') => storage_path('app/posts'),
+        public_path('storage/categories') => storage_path('app/categories'),
+        public_path('storage/products') => storage_path('app/products'),
+        public_path('storage/posts') => storage_path('app/posts'),
     ],
 
 ];
