@@ -12,11 +12,18 @@ class ProductUnit extends Model
     use HasFactory;
 
     protected $table = 'product_unit';
-    protected $fillable = ['product_id', 'unit_id', 'amount'];
+    protected $fillable = ['product_id', 'unit_id', 'amount', 'default'];
+    public $timestamps = false;
+    protected $casts = ['default' => 'boolean'];
 
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
     }
 
     public function orders(): BelongsToMany

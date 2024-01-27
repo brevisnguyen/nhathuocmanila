@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $fillable = ['name', 'slug', 'image', 'description', 'sold', 'status'];
     protected $casts = ['status' => Status::class];
@@ -39,16 +41,18 @@ class Product extends Model
         );
     }
 
-    protected function image(): Attribute
+    public function registerMediaConversions(Media $media = null): void
     {
-        return Attribute::make(
-            get: function (string $url) {
-                if (\Str::startsWith($this->image, ['http://', 'https://', '//'])) {
-                    return $this->image;
-                } else {
-                    return Storage::disk('products')->url($this->image);
-                }
-            }
-        );
+        $this->addMediaConversion('thumb')
+            ->width(100)
+            ->height(100);
+
+        $this->addMediaConversion('medium')
+            ->width(300)
+            ->height(300);
+
+        $this->addMediaConversion('large')
+            ->width(800)
+            ->height(800);
     }
 }

@@ -29,7 +29,7 @@ Route::get('/', HomePage::class)->name('home');
 
 Route::get('/danh-muc/{category}', ShowCategory::class)->name('category');
 
-Route::get('/thuoc/{medicine}', ShowProduct::class)->name('product.show');
+Route::get('/thuoc/{product}', ShowProduct::class)->name('product');
 Route::get('/thuoc', ProductIndex::class)->name('product.index');
 
 Route::get('/bai-viet/{post}', ShowPost::class)->name('post.show');
