@@ -1,4 +1,5 @@
 <div>
+    @if($getState())
     <div class="text-xs flex flex-col">
     @foreach($getState() as $state)
         <span
@@ -15,4 +16,5 @@
         </span>
     @endforeach
     </div>
+    @endif
 </div>

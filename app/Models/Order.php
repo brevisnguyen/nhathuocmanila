@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Payment;
 use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,8 @@ class Order extends Model
 
     protected $casts = [
         'attachments' => 'array',
-        'status' => Status::class
+        'status' => Status::class,
+        'payment' => Payment::class
     ];
 
     public function user(): BelongsTo

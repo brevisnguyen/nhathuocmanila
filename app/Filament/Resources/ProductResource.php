@@ -54,12 +54,14 @@ class ProductResource extends Resource
                         ->columns(),
                     Forms\Components\Section::make('Giá bán')
                         ->schema([
-                            Forms\Components\Repeater::make('units')
+                            Forms\Components\Repeater::make('productUnits')
                                 ->label('Giá theo đơn vị')
+                                ->required()
                                 ->relationship()
                                 ->schema([
                                     Forms\Components\Select::make('unit_id')
                                         ->label('Đơn vị')
+                                        ->distinct()
                                         ->required()
                                         ->options(Unit::all()->pluck('name', 'id')),
                                     Forms\Components\TextInput::make('amount')
@@ -119,7 +121,7 @@ class ProductResource extends Resource
                     ->label('Trạng thái')
                     ->badge()
                     ->sortable(),
-                \App\Tables\Columns\PriceByUnit::make('units')
+                \App\Tables\Columns\PriceByUnit::make('productUnits')
                     ->label('Giá bán'),
                 Tables\Columns\TextColumn::make('categories.name')
                     ->label('Danh mục')

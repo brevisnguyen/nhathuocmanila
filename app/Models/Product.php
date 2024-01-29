@@ -24,7 +24,12 @@ class Product extends Model implements HasMedia
         return $this->belongsToMany(Category::class);
     }
 
-    public function units(): HasMany
+    public function units(): BelongsToMany
+    {
+        return $this->belongsToMany(Unit::class, 'product_unit')->withPivot(['amount', 'default', 'id']);
+    }
+
+    public function productUnits(): HasMany
     {
         return $this->hasMany(ProductUnit::class);
     }

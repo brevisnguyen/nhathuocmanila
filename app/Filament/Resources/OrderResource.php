@@ -2,19 +2,20 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\Role;
+use App\Enums\Status;
+use App\Enums\Payment;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
-use App\Models\Medication;
 use App\Models\Order;
+use App\Models\Product;
+use App\Models\ProductUnit;
 use Filament\Forms;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
-use Filament\Forms\Set;
-use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OrderResource extends Resource
 {
@@ -27,72 +28,42 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Thông tin cơ bản')
+                Forms\Components\Group::make()
+                ->schema([
+                    Forms\Components\Section::make()
+                        ->schema(static::getDetailsFormSchema())
+                        ->columns(2),
+
+                    Forms\Components\Section::make('Đơn thuốc')
+                        ->headerActions([
+                            Forms\Components\Actions\Action::make('reset')
+                                ->label('Đặt lại')
+                                ->modalHeading('Bạn có chắc không?')
+                                ->modalDescription('Tất cả sản phầm của đơn hàng này sẽ bị xóa!')
+                                ->requiresConfirmation()
+                                ->color('danger')
+                                ->action(fn (Forms\Set $set) => $set('items', [])),
+                        ])
+                        ->schema([
+                            static::getItemsRepeater(),
+                        ]),
+                ])
+                ->columnSpan(['lg' => fn (?Order $record) => $record === null ? 3 : 2]),
+
+                Forms\Components\Section::make()
                     ->schema([
-                        Forms\Components\TextInput::make('customer')
-                            ->label('Tên khách hàng')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('phone')
-                            ->label('Số điện thoại')
-                            ->tel(),
-                        Forms\Components\Radio::make('payment_method')
-                                ->label('Phương thức thanh toán')
-                                ->required()
-                                ->options([
-                                    'cod' => 'Ship COD',
-                                    'bank' => "Chuyển khoản NH"
-                                ])
-                                ->inlineLabel(true),
-                        Forms\Components\TextInput::make('total_amount')
-                                ->label('Tổng tiền')
-                                ->disabled(fn (string $operation): bool => $operation === 'create')
-                                ->suffix('₱')
-                                ->columnSpan(1),
-                    ])->columns(2),
-                Forms\Components\Section::make('Thông tin đơn thuốc')
-                    ->schema([
-                        Forms\Components\Repeater::make('orderMedications')
-                            ->label('Danh sách thuốc và số lượng')
-                            ->relationship()
-                            ->schema([
-                                Forms\Components\Select::make('medication_id')
-                                    ->label('Tên thuốc')
-                                    ->reactive()
-                                    ->required()
-                                    ->relationship('medication', 'name')
-                                    ->afterStateUpdated(function (Set $set, Get $get, ?string $state) {
-                                        $amount = $get('quantity') * Medication::find($state)?->price;
-                                        $set('amount', $amount);
-                                    }),
-                                Forms\Components\Grid::make()->schema([
-                                    Forms\Components\TextInput::make('quantity')
-                                        ->label('Số lượng')
-                                        ->reactive()
-                                        ->required()
-                                        ->numeric()
-                                        ->minValue(1)
-                                        ->afterStateUpdated(function (Set $set, Get $get, ?string $state) {
-                                            $amount = $state * Medication::find($get('medication_id'))?->price;
-                                            $set('amount', $amount);
-                                        }),
-                                    Forms\Components\TextInput::make('amount')
-                                        ->label('Thành tiền')
-                                        ->disabled()
-                                        ->dehydrated()
-                                        ->reactive()
-                                        ->numeric()
-                                        ->suffix('₱'),
-                                ]),
-                            ])
-                            ->grid(2)
-                            ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
-                                $order = Order::find($data['order_id']);
-                                $order->setTotalAmount();
-                                return $data;
-                            }),
-                    ])->collapsible(),
-            ]);
+                        Forms\Components\Placeholder::make('created_at')
+                            ->label('Thời gian tạo')
+                            ->content(fn (Order $record): ?string => $record->created_at?->diffForHumans()),
+
+                        Forms\Components\Placeholder::make('updated_at')
+                            ->label('Sửa lần cuối')
+                            ->content(fn (Order $record): ?string => $record->updated_at?->diffForHumans()),
+                    ])
+                    ->columnSpan(['lg' => 1])
+                    ->hidden(fn (?Order $record) => $record === null),
+            ])
+            ->columns(3);
     }
 
     public static function table(Table $table): Table
@@ -101,26 +72,22 @@ class OrderResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('customer')
+                Tables\Columns\TextColumn::make('user.name')
                     ->label('Khách hàng')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->label('SĐT')
                     ->copyable(),
-                Tables\Columns\TextColumn::make('payment_method')
+                Tables\Columns\TextColumn::make('payment')
                     ->label('Thanh toán')
                     ->sortable()
-                    ->badge()
-                    ->formatStateUsing(function (string $state): string {
-                        return $state === 'cod' ? 'Ship COD' : 'Chuyển khoản';
-                    })
-                    ->color(fn (string $state): string => match ($state) {
-                        'cod' => 'danger',
-                        'bank' => 'info',
-                    }),
-                Tables\Columns\TextColumn::make('total_amount')
+                    ->badge(),
+                Tables\Columns\TextColumn::make('total')
                     ->label('Tổng tiền')
                     ->money('PHP')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
                     ->sortable(),
             ])
             ->searchPlaceholder('Tìm tên khách hàng')
@@ -131,7 +98,7 @@ class OrderResource extends Resource
                         'cod' => 'Ship COD',
                         'bank' => 'Chuyển khoản'
                     ]),
-                ], layout: Tables\Enums\FiltersLayout::AboveContent)
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -154,5 +121,112 @@ class OrderResource extends Resource
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
+    }
+
+    public static function getDetailsFormSchema(): array
+    {
+        return [
+            Forms\Components\Select::make('user_id')
+                ->label('Khách hàng')
+                ->relationship('user', 'name')
+                ->preload()
+                ->searchable()
+                ->required()
+                ->createOptionForm([
+                    Forms\Components\TextInput::make('name')
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('email')
+                        ->required()
+                        ->email()
+                        ->maxLength(255)
+                        ->unique(),
+                    Forms\Components\TextInput::make('password')
+                        ->label('Mật khẩu')
+                        ->hint('Mặc định 123456')
+                        ->readonly()
+                        ->default('123456'),
+                    Forms\Components\ToggleButtons::make('role')
+                        ->disabled()
+                        ->inline()
+                        ->options(Role::class)
+                        ->default(Role::GUEST),
+                ])
+                ->createOptionAction(function (Forms\Components\Actions\Action $action) {
+                    return $action
+                        ->modalHeading('Tạo mới khách hàng')
+                        ->modalSubmitActionLabel('Tạo mới khách hàng')
+                        ->modalWidth('lg');
+                }),
+
+            Forms\Components\TextInput::make('phone')
+                ->label('Số điện thoại')
+                ->required()
+                ->tel()
+                ->maxLength(255),
+
+            Forms\Components\TextInput::make('address')
+                ->label('Địa chỉ')
+                ->maxLength(255)
+                ->required(),
+
+            Forms\Components\ToggleButtons::make('payment')
+                ->label('Phương thức thanh toán')
+                ->inline()
+                ->options(Payment::class)
+                ->default(Payment::SHIP_COD)
+                ->required(),
+
+            Forms\Components\ToggleButtons::make('status')
+                ->label('Trạng thái')
+                ->inline()
+                ->options(Status::class)
+                ->default(Status::PENDING)
+                ->required()
+                ->columnSpan('full'),
+
+            Forms\Components\RichEditor::make('description')
+                ->label('Mô tả')
+                ->maxLength(255)
+                ->hint('Cách dùng, liều dùng của đơn thuốc')
+                ->columnSpan('full')
+                ->toolbarButtons(['bold', 'italic']),
+        ];
+    }
+
+    public static function getItemsRepeater(): Repeater
+    {
+        return Repeater::make('items')
+            ->relationship()
+            ->schema([
+                Forms\Components\Select::make('product_id')
+                    ->label('Tên thuốc')
+                    ->options(Product::all()->pluck('name', 'id'))
+                    ->required()
+                    ->reactive()
+                    ->distinct()
+                    ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                    ->columnSpan(['md' => 5])
+                    ->searchable()
+                    ->preload(),
+
+                Forms\Components\Select::make('unit_id')
+                    ->label('Đơn vị')
+                    ->reactive()
+                    ->required()
+                    ->options(fn (Forms\Get $get) => Product::find($get('product_id'))?->units->pluck('name', 'pivot.id'))
+                    ->afterStateUpdated(fn ($state, Forms\Set $set) => $set('amount', ProductUnit::find($state)?->amount)),
+
+                Forms\Components\TextInput::make('amount')
+                    ->label('Thành tiền')
+                    ->disabled()
+                    ->dehydrated(),
+
+                Forms\Components\TextInput::make('quantity')
+                    ->label('Số lượng')
+                    ->numeric()
+                    ->minValue(1)
+                    ->default(1)
+            ]);
     }
 }
