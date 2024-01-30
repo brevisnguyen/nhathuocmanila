@@ -11,7 +11,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class PostResource extends Resource
 {
@@ -26,36 +25,39 @@ class PostResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Thông tin bài viết')
+                    ->collapsible()
+                    ->columns(2)
                     ->schema([
                         Forms\Components\TextInput::make('title')
                             ->label('Tiêu đề')
                             ->required()
                             ->maxLength(255)
-                            ->columnSpan(['default' => 1, 'sm' => 2, 'md' => 3])
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
                         Forms\Components\TextInput::make('slug')
                             ->required()
-                            ->unique(ignoreRecord: true)
-                            ->columnSpan(['default' => 1, 'sm' => 2, 'md' => 3]),
+                            ->unique(ignoreRecord: true),
+                        Forms\Components\Select::make('user_id')
+                            ->relationship('user', 'name')
+                            ->searchable()
+                            ->preload(),
+                        Forms\Components\DatePicker::make('updated_at')
+                            ->label('Ngày xuất bản'),
                         Forms\Components\TextInput::make('views')
                             ->label('Số lượt xem')
-                            ->disabled()
-                            ->columnSpan(['default' => 1, 'sm' => 1, 'md' => 2]),
-                        Forms\Components\FileUpload::make('featured_image')
+                            ->numeric()
+                            ->minValue(0),
+                        Forms\Components\SpatieMediaLibraryFileUpload::make('image')
                             ->label('Ảnh bìa bài viết')
-                            ->image()
                             ->required()
-                            ->openable()
-                            ->columnSpanFull()
+                            ->image()
+                            ->preserveFilenames()
                             ->disk('posts')
-                            ->getUploadedFileNameForStorageUsing(
-                                fn (TemporaryUploadedFile $file): string => (string) str($file->getFilename())->prepend('featured-image-'),
-                            ),
-                    ])->columns([
-                        'default' => 1,
-                        'sm' => 5,
-                        'md' => 8,
+                            ->collection('posts')
+                            ->imageEditor()
+                            ->orientImagesFromExif(false)
+                            ->fetchFileInformation(false)
+                            ->columnSpanFull(),
                     ]),
                 Forms\Components\Section::make('Nội dung')
                     ->schema([
@@ -71,16 +73,23 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->label('Tiêu đề'),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')
+                    ->label('Hình ảnh')
+                    ->collection('posts')
+                    ->conversion('thumb'),
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Tiêu đề')
+                    ->weight(\Filament\Support\Enums\FontWeight::Bold)
+                    ->copyable(),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Tác giả')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('views')
                     ->label('Lượt xem')
                     ->sortable()
                     ->default(0)
                     ->icon('heroicon-s-eye')
                     ->iconColor('success'),
-                Tables\Columns\ImageColumn::make('featured_image')
-                    ->label('Ảnh bìa')
-                    ->disk('posts'),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Ngày cập nhật')
                     ->since(),
