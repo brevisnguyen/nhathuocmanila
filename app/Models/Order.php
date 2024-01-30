@@ -22,7 +22,7 @@ class Order extends Model
         'description',
         'attachments',
         'subtotal',
-        'total'
+        'shipping'
     ];
 
     protected $casts = [

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('attachments', 512)->nullable();
             $table->string('description')->nullable();
             $table->decimal('subtotal')->default(0);
-            $table->decimal('total')->default(0);
+            $table->decimal('shipping')->default(0);
             $table->timestamps();
         });
     }
