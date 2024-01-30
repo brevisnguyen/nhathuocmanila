@@ -6,7 +6,6 @@ use App\Enums\Role;
 use App\Enums\Status;
 use App\Enums\Payment;
 use App\Filament\Resources\OrderResource\Pages;
-use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductUnit;
@@ -74,6 +73,7 @@ class OrderResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Khách hàng')
+                    ->url(fn (Order $record): string => route('filament.admin.resources.users.edit', ['record' => $record->user_id]))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->label('SĐT')
@@ -82,25 +82,66 @@ class OrderResource extends Resource
                     ->label('Thanh toán')
                     ->sortable()
                     ->badge(),
-                Tables\Columns\TextColumn::make('total')
-                    ->label('Tổng tiền')
+                Tables\Columns\TextColumn::make('subtotal')
+                    ->label('Tiền thuốc')
                     ->money('PHP')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('shipping')
+                    ->label('Phí ship')
+                    ->money('PHP'),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Ngày cập nhật')
+                    ->dateTime(),
             ])
             ->searchPlaceholder('Tìm tên khách hàng')
             ->filters([
-                Tables\Filters\SelectFilter::make('payment_method')
-                    ->label('Thanh toán')
-                    ->options([
-                        'cod' => 'Ship COD',
-                        'bank' => 'Chuyển khoản'
-                    ]),
+                Tables\Filters\SelectFilter::make('payment')
+                    ->label('Phương thức thanh toán')
+                    ->options(Payment::class),
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('Trạng thái đơn hàng')
+                    ->multiple()
+                    ->options(Status::class),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\Action::make('updateStatus')
+                        ->label('Cập nhật trạng thái')
+                        ->icon('heroicon-o-bolt')
+                        ->modalHeading('Cập nhật trạng thái')
+                        ->form([
+                            Forms\Components\ToggleButtons::make('status')
+                                ->label('Trạng thái mới')
+                                ->options(Status::class)
+                                ->inline()
+                                ->required()
+                        ])
+                        ->action(function (array $data, Order $record): void {
+                            $record->status = $data['status'];
+                            $record->save();
+                        }),
+                    Tables\Actions\Action::make('updateShippingFee')
+                        ->label('Cập nhật phí ship')
+                        ->icon('heroicon-o-truck')
+                        ->modalHeading('Cập nhật phí ship')
+                        ->form([
+                            Forms\Components\TextInput::make('shipping')
+                                ->label('Phí ship')
+                                ->prefix('₱')
+                                ->required()
+                                ->numeric()
+                                ->inputMode('decimal')
+                                ->minValue(0)
+                        ])
+                        ->action(function (array $data, Order $record): void {
+                            $record->shipping = $data['shipping'];
+                            $record->save();
+                        })
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -170,6 +211,13 @@ class OrderResource extends Resource
                 ->maxLength(255)
                 ->required(),
 
+            Forms\Components\TextInput::make('shipping')
+                ->label('Phí ship')
+                ->numeric()
+                ->default(0)
+                ->prefix('₱')
+                ->minValue(0),
+
             Forms\Components\ToggleButtons::make('payment')
                 ->label('Phương thức thanh toán')
                 ->inline()
@@ -191,12 +239,25 @@ class OrderResource extends Resource
                 ->hint('Cách dùng, liều dùng của đơn thuốc')
                 ->columnSpan('full')
                 ->toolbarButtons(['bold', 'italic']),
+
+            Forms\Components\FileUpload::make('attachments')
+                ->label('Hình ảnh')
+                ->hint('Hình ảnh chứng minh chuyển khoản hoặc ship hàng')
+                ->image()
+                ->disk('orders')
+                ->multiple()
+                ->maxFiles(3)
+                ->preserveFilenames()
+                ->imageEditor()
+                ->downloadable()
+                ->columnSpan('full')
         ];
     }
 
     public static function getItemsRepeater(): Repeater
     {
         return Repeater::make('items')
+            ->label('Đơn thuốc')
             ->relationship()
             ->schema([
                 Forms\Components\Select::make('product_id')

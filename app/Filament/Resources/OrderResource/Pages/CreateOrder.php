@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\OrderResource\Pages;
 
 use App\Filament\Resources\OrderResource;
-use Filament\Actions;
+use App\Models\OrderItem;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
@@ -48,6 +48,9 @@ class CreateOrder extends CreateRecord
 
     protected function afterCreate(): void
     {
-        $items = $this->record->items();
+        $items = $this->getRecord()?->items;
+        $subtotal = $items->sum(fn (OrderItem $item): float => $item->quantity * $item->amount);
+
+        $this->getRecord()->update(['subtotal' => $subtotal]);
     }
 }
