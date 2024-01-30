@@ -79,6 +79,14 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+
+        'orders' => [
+            'driver' => 'local',
+            'root' => storage_path('app/orders'),
+            'url' => env('APP_URL').'/storage/orders',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
     ],
 
     /*
@@ -97,6 +105,7 @@ return [
         public_path('storage/categories') => storage_path('app/categories'),
         public_path('storage/products') => storage_path('app/products'),
         public_path('storage/posts') => storage_path('app/posts'),
+        public_path('storage/orders') => storage_path('app/orders'),
     ],
 
 ];
