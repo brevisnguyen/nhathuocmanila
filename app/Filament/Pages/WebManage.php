@@ -60,13 +60,21 @@ class WebManage extends SettingsPage
                                     ->imageEditor(),
                                 Forms\Components\FileUpload::make('banner')
                                     ->columnSpanFull()
-                                    ->label('Ảnh banner ở trang chủ')
+                                    ->label('Ảnh slide ở trang chủ')
+                                    ->hint('Có thể chọn nhiều ảnh')
                                     ->required()
                                     ->image()
                                     ->multiple()
                                     ->preserveFilenames()
                                     ->imageEditor(),
-                                ]),
+                                Forms\Components\FileUpload::make('mid_banner')
+                                    ->columnSpanFull()
+                                    ->label('Ảnh banner ở trang chủ')
+                                    ->required()
+                                    ->image()
+                                    ->preserveFilenames()
+                                    ->imageEditor(),
+                            ]),
                     ]),
             ]);
     }

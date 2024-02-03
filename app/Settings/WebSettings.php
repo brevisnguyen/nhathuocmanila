@@ -12,6 +12,7 @@ class WebSettings extends Settings
     public string $hotline;
     public string $logo;
     public array $banner;
+    public string $mid_banner;
 
     public static function group(): string
     {

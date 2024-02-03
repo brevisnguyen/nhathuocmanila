@@ -12,5 +12,6 @@ return new class extends SettingsMigration
         $this->migrator->add('website.hotline', '');
         $this->migrator->add('website.logo', '');
         $this->migrator->add('website.banner', []);
+        $this->migrator->add('website.mid_banner', '');
     }
 };
