@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
  */
-class PostFactory extends Factory
+class ProductFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +17,11 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(),
+            'name' => fake()->sentence(4),
             'slug' => fake()->slug(),
-            'content' => fake()->text(),
-            'views' => fake()->randomNumber(4),
+            'status' => \App\Enums\Status::IN_STOCK,
+            'sold' => fake()->randomNumber(3),
+            'description' => fake()->paragraph()
         ];
     }
 }
