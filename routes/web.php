@@ -36,7 +36,7 @@ Route::get('/danh-muc/{category}', ShowCategory::class)->name('category');
 Route::get('/thuoc/{product}', ShowProduct::class)->name('product');
 Route::get('/thuoc', ProductIndex::class)->name('product.index');
 
-Route::get('/bai-viet/{post}', ShowPost::class)->name('post.show');
+Route::get('/bai-viet/{post}', ShowPost::class)->name('post');
 Route::get('/bai-viet', PostIndex::class)->name('post.index');
 
 Route::get('/gio-hang', ShowCart::class)->name('cart.show');
