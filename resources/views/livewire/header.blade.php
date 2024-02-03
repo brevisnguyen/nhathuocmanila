@@ -1,9 +1,11 @@
-<div class="">
+<div>
     <header>
         <div class="header-top hidden md:block w-full bg-neutral-100 text-slate-800">
             <div class="container py-3 flex flex-wrap justify-between">
                 <div class="my-auto grid grid-cols-2 divide-x">
-                    <a href="https://t.me/nhathuocmanila" class="inline-flex gap-x-1 justify-center items-center hover:text-lime-500">
+                    <a href="{{ 'https://t.me/' . $website['telegram'] }}" target="_blank"
+                        class="inline-flex gap-x-1 justify-center items-center hover:text-lime-500"
+                    >
                         <i class="fa-brands fa-telegram relative"></i>
                         <p class="my-auto">nhathuocmanila</p>
                     </a>
@@ -11,16 +13,28 @@
                 </div>
                 <div class="social flex justify-center items-center gap-x-4">
                     <p class="text-sm text-slate-800 italic">Tìm chúng mình trên</p>
-                    <a href="#" class="hover:text-blue-500"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="hover:text-red-500"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#" class="hover:text-lime-500"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="{{ 'https://www.facebook.com/' . $website['facebook'] }}"
+                        target="_blank" class="hover:text-blue-500"
+                    >
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="{{ 'https://www.tiktok.com/@' . $website['tiktok'] }}"
+                        target="_blank" class="hover:text-red-500"
+                    >
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="{{ 'https://t.me/' . $website['telegram'] }}"
+                        target="_blank" class="hover:text-lime-500"
+                    >
+                        <i class="fa-brands fa-telegram"></i>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="grid grid-cols-12 items-center">
                 <div class="logo col-span-9 md:col-span-3 px-2 py-3">
-                    <a href="{{ route('home') }}"><img src="{{ asset('storage/logo-nha-thuoc-manila.png') }}" alt="logo nha thuoc manila"></a>
+                    <a href="{{ route('home') }}"><img src="{{ asset('storage/'.$website['logo']) }}" alt="{{ config('app.name') }}"></a>
                 </div>
                 <div class="nav col-span-7 px-2 mx-auto hidden md:block">
                     <nav class="py-4 uppercase font-bold flex md:gap-x-3 lg:gap-x-6 xl:gap-x-10 md:text-sm lg:text-base">
@@ -57,21 +71,23 @@
                         <i class="fa-solid fa-caret-down text-end"></i>
                     </div>
                 </div>
+                @if($categories->isNotEmpty())
                 <ul class="p-3 border border-solid border-gray-200 text-slate-800 bg-white absolute w-full z-10 max-h-96 overflow-y-scroll scrollbar"
                     x-show="open"
                     x-transition.origin.top.left
                 >
                     @foreach($categories as $category)
                     <li class="flex py-2 cursor-pointer hover:ml-2 hover:text-lime-800 hover:transition-all hover:duration-200">
-                        <a href="{{ $category->getUrl() }}" class="w-full">{{ $category->name }}</a>
+                        <a href="{{ $category->url }}" class="w-full">{{ $category->name }}</a>
                     </li>
                     @endforeach
                 </ul>
+                @endif
             </div>
             <div class="search md:col-span-9 md:px-3">
                 <div class="search-form flex flex-col md:flex-row justify-between"
                     x-data="{show: true}"
-                    x-init="show='{{ Illuminate\Support\Facades\Route::currentRouteName() }}' == 'homepage'"
+                    x-init="show='{{ Illuminate\Support\Facades\Route::currentRouteName() }}' == 'home'"
                 >
                     <div class="w-full lg:w-3/4">
                         <form action="search">
@@ -85,7 +101,7 @@
                     <div class="search-phone hidden lg:flex items-center justify-center">
                         <div class="bg-slate-200 rounded-full mr-4 w-10 h-10 flex items-center justify-center text-lime-900"><i class="fa-solid fa-phone"></i></div>
                         <div class="grid grid-rows-2">
-                            <span class="font-bold text-slate-950">0985 435 9999</span>
+                            <span class="font-bold text-slate-950">{{ $website['hotline'] }}</span>
                             <span class="text-slate-500">Hỗ trợ 24/7</span>
                         </div>
                     </div>
