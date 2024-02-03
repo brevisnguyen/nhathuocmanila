@@ -2,21 +2,47 @@
 
 namespace App\Livewire;
 
-use App\Models\Medication;
 use App\Models\Post;
+use App\Models\Product;
+use App\Settings\WebSettings;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class HomePage extends Component
 {
     public $posts;
-    public $hot_products;
-    public $newest_products;
+    public array $banners;
+    public $flash_sale;
+    public $products;
 
     public function mount()
     {
-        $this->hot_products = Medication::popular()->take(20)->get();
-        $this->newest_products = Medication::where('inventory', '>', 0)->latest('updated_at')->take(20)->get();
-        $this->posts = Post::latest('updated_at')->take(6)->get();
+        $this->banners = $this->getBanners();
+
+        $this->posts = Post::latest('updated_at')->limit(6)->get();
+
+        $this->flash_sale = $this->getFlashSale();
+
+        $this->products = Product::orderBy('updated_at')->limit(20)->get();
+    }
+
+    private function getBanners(): array
+    {
+        $banners = app(WebSettings::class)->banner;
+        foreach ($banners as $key => &$img) {
+            if (Storage::disk('public')->exists($img)) {
+                $img = Storage::disk('public')->url($img);
+            } else {
+                unset($banners[$key]);
+            }
+        }
+        return $banners;
+    }
+
+    private function getFlashSale()
+    {
+        // Random 15 products
+        return Product::inRandomOrder()->limit(15)->get();
     }
 
     public function render()
