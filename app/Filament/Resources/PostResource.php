@@ -49,6 +49,7 @@ class PostResource extends Resource
                             ->minValue(0),
                         Forms\Components\SpatieMediaLibraryFileUpload::make('image')
                             ->label('Ảnh bìa bài viết')
+                            ->hint('Nên để ảnh ngang có tỷ lệ 16:9 hoặc vuôn 1:1')
                             ->required()
                             ->image()
                             ->preserveFilenames()

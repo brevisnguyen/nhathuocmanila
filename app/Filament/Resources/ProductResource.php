@@ -39,10 +39,12 @@ class ProductResource extends Resource
                                 ->disabled(),
                             Forms\Components\SpatieMediaLibraryFileUpload::make('image')
                                 ->label('Hình ảnh sản phẩm')
+                                ->hint('Ảnh rõ nét, tỷ lệ 1:1')
                                 ->image()
                                 ->disk('products')
                                 ->collection('products')
                                 ->imageEditor()
+                                ->imageEditorAspectRatios(['1:1'])
                                 ->orientImagesFromExif(false)
                                 ->fetchFileInformation(false)
                                 ->columnSpanFull(),
