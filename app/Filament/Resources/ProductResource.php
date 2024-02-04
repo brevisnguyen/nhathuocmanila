@@ -76,6 +76,8 @@ class ProductResource extends Resource
                                     Forms\Components\Toggle::make('default')
                                         ->label('Hiển thị mặc định')
                                         ->inline(false)
+                                        ->distinct()
+                                        ->fixIndistinctState()
                                         ->onIcon('heroicon-s-eye')
                                         ->offIcon('heroicon-s-eye-slash')
                                         ->onColor('success')
