@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Settings\WebSettings;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,15 +37,24 @@ class Category extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-            ->width(100)
-            ->height(100);
+            ->fit(
+                \Spatie\Image\Enums\Fit::Crop,
+                intval(app(WebSettings::class)->thumb_size[0]),
+                intval(app(WebSettings::class)->thumb_size[1]),
+            );
 
         $this->addMediaConversion('medium')
-            ->width(300)
-            ->height(300);
+            ->fit(
+                \Spatie\Image\Enums\Fit::Crop,
+                intval(app(WebSettings::class)->medium_size[0]),
+                intval(app(WebSettings::class)->medium_size[1]),
+            );
 
         $this->addMediaConversion('large')
-            ->width(800)
-            ->height(800);
+            ->fit(
+                \Spatie\Image\Enums\Fit::Crop,
+                intval(app(WebSettings::class)->large_size[0]),
+                intval(app(WebSettings::class)->large_size[1]),
+            );
     }
 }

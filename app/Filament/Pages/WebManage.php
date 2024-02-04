@@ -75,7 +75,81 @@ class WebManage extends SettingsPage
                                     ->preserveFilenames()
                                     ->imageEditor(),
                             ]),
+                        Forms\Components\Tabs\Tab::make('Upload')
+                            ->icon('heroicon-m-cloud-arrow-up')
+                            ->schema([
+                                Forms\Components\Section::make('Ảnh sản phẩm')
+                                    ->schema([
+                                        Forms\Components\Fieldset::make('Kích thước ảnh Thumbnail')
+                                            ->columnSpanFull()
+                                            ->schema([
+                                                Forms\Components\TextInput::make('thumb_width')
+                                                    ->label('Chiều rộng')
+                                                    ->numeric()
+                                                    ->suffix('px')
+                                                    ->afterStateHydrated(function (Forms\Components\TextInput $component, Forms\Get $get) {
+                                                        $component->state($get('thumb_size')[0]);
+                                                    }),
+                                                Forms\Components\TextInput::make('thumb_height')
+                                                    ->label('Chiều dài')
+                                                    ->numeric()
+                                                    ->suffix('px')
+                                                    ->afterStateHydrated(function (Forms\Components\TextInput $component, Forms\Get $get) {
+                                                        $component->state($get('thumb_size')[1]);
+                                                    }),
+                                            ]),
+                                        Forms\Components\Fieldset::make('Kích thước ảnh cỡ vừa Medium')
+                                            ->columnSpanFull()
+                                            ->schema([
+                                                Forms\Components\TextInput::make('medium_width')
+                                                    ->label('Chiều rộng')
+                                                    ->numeric()
+                                                    ->suffix('px')
+                                                    ->afterStateHydrated(function (Forms\Components\TextInput $component, Forms\Get $get) {
+                                                        $component->state($get('medium_size')[0]);
+                                                    }),
+                                                Forms\Components\TextInput::make('medium_height')
+                                                    ->label('Chiều dài')
+                                                    ->numeric()
+                                                    ->suffix('px')
+                                                    ->afterStateHydrated(function (Forms\Components\TextInput $component, Forms\Get $get) {
+                                                        $component->state($get('medium_size')[1]);
+                                                    }),
+                                            ]),
+                                        Forms\Components\Fieldset::make('Kích thước ảnh cỡ lớn Large')
+                                            ->columnSpanFull()
+                                            ->schema([
+                                                Forms\Components\TextInput::make('large_width')
+                                                    ->label('Chiều rộng')
+                                                    ->numeric()
+                                                    ->suffix('px')
+                                                    ->afterStateHydrated(function (Forms\Components\TextInput $component, Forms\Get $get) {
+                                                        $component->state($get('large_size')[0]);
+                                                    }),
+                                                Forms\Components\TextInput::make('large_height')
+                                                    ->label('Chiều dài')
+                                                    ->numeric()
+                                                    ->suffix('px')
+                                                    ->afterStateHydrated(function (Forms\Components\TextInput $component, Forms\Get $get) {
+                                                        $component->state($get('large_size')[1]);
+                                                    }),
+                                            ]),
+                                    ]),
+                            ]),
                     ]),
             ]);
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $data['thumb_size'] = [$data['thumb_width'], $data['thumb_height']];
+        $data['medium_size'] = [$data['medium_width'], $data['medium_height']];
+        $data['large_size'] = [$data['large_width'], $data['large_height']];
+
+        unset($data['thumb_width'], $data['thumb_height']);
+        unset($data['medium_width'], $data['medium_height']);
+        unset($data['large_width'], $data['large_height']);
+
+        return $data;
     }
 }

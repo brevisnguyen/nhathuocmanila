@@ -13,5 +13,8 @@ return new class extends SettingsMigration
         $this->migrator->add('website.logo', '');
         $this->migrator->add('website.banner', []);
         $this->migrator->add('website.mid_banner', '');
+        $this->migrator->add('website.thumb_size', [100, 100]);
+        $this->migrator->add('website.medium_size', [350, 350]);
+        $this->migrator->add('website.large_size', [640, 640]);
     }
 };

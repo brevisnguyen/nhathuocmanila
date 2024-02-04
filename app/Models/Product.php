@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Status;
+use App\Settings\WebSettings;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,11 @@ class Product extends Model implements HasMedia
     protected $fillable = ['name', 'slug', 'image', 'description', 'sold', 'status'];
     protected $casts = ['status' => Status::class];
 
+    /**
+     * =================================================================
+     * RELATIONSHIP FOR PRODUCT
+     * =================================================================
+     */
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
@@ -34,11 +40,11 @@ class Product extends Model implements HasMedia
         return $this->hasMany(ProductUnit::class);
     }
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
+    /**
+     * =================================================================
+     * ATTRIBUTE FOR PRODUCT
+     * =================================================================
+     */
     protected function url(): Attribute
     {
         return Attribute::make(
@@ -46,18 +52,32 @@ class Product extends Model implements HasMedia
         );
     }
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-            ->width(100)
-            ->height(100);
+            ->fit(
+                \Spatie\Image\Enums\Fit::Crop,
+                intval(app(WebSettings::class)->thumb_size[0]),
+                intval(app(WebSettings::class)->thumb_size[1]),
+            );
 
         $this->addMediaConversion('medium')
-            ->width(300)
-            ->height(300);
+            ->fit(
+                \Spatie\Image\Enums\Fit::Crop,
+                intval(app(WebSettings::class)->medium_size[0]),
+                intval(app(WebSettings::class)->medium_size[1]),
+            );
 
         $this->addMediaConversion('large')
-            ->width(800)
-            ->height(800);
+            ->fit(
+                \Spatie\Image\Enums\Fit::Crop,
+                intval(app(WebSettings::class)->large_size[0]),
+                intval(app(WebSettings::class)->large_size[1]),
+            );
     }
 }
