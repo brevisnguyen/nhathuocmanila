@@ -47,8 +47,8 @@
                     :id="$id('dropdown-button')"
                     style="display: none;"
                 >
-                    <li wire:click="filter('lowest'), open=!open" class="w-full px-4 py-2.5 text-left cursor-pointer hover:bg-gray-50 disabled:text-gray-500"><p>Giá thấp đến cao</p></li>
-                    <li wire:click="filter('highest'), open=!open" class="w-full px-4 py-2.5 text-left cursor-pointer hover:bg-gray-50 disabled:text-gray-500"><p>Giá cao đến thấp</p></li>
+                    <li wire:click="filter('a2z'), open=!open" class="w-full px-4 py-2.5 text-left cursor-pointer hover:bg-gray-50 disabled:text-gray-500"><p>Theo tên A-Z</p></li>
+                    <li wire:click="filter('z2a'), open=!open" class="w-full px-4 py-2.5 text-left cursor-pointer hover:bg-gray-50 disabled:text-gray-500"><p>Theo tên Z-A</p></li>
                     <li wire:click="filter('newest'), open=!open" class="w-full px-4 py-2.5 text-left cursor-pointer hover:bg-gray-50 disabled:text-gray-500"><p>Mới nhất</p></li>
                 </ul>
             </div>

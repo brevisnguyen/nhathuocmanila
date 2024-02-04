@@ -2,8 +2,8 @@
 
 namespace App\Livewire;
 
-use App\Models\Category as Grade;
-use App\Models\Medication;
+use App\Models\Category;
+use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,7 +14,7 @@ class ShowCategory extends Component
     public $category;
     public $orderBy;
 
-    public function mount(Grade $category)
+    public function mount(Category $category)
     {
         $this->category = $category;
     }
@@ -27,12 +27,12 @@ class ShowCategory extends Component
 
     protected function queryMedicines()
     {
-        $data = Medication::whereHas('categories', function ($query) {
+        $data = Product::whereHas('categories', function ($query) {
             $query->where('category_id', $this->category->id);
-        })->when($this->orderBy == 'highest', function ($query) {
-            $query->orderBy('price', 'desc');
-        })->when($this->orderBy == 'lowest', function ($query) {
-            $query->orderBy('price', 'asc');
+        })->when($this->orderBy == 'a2z', function ($query) {
+            $query->orderBy('name', 'asc');
+        })->when($this->orderBy == 'z2a', function ($query) {
+            $query->orderBy('name', 'desc');
         })->when($this->orderBy == 'newest', function ($query) {
             $query->orderBy('updated_at', 'desc');
         })->paginate(20);
