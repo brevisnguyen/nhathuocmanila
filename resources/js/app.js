@@ -1,8 +1,10 @@
 import "./bootstrap";
 import Alpine from "alpinejs";
+import collapse from "@alpinejs/collapse";
 import Splide from "@splidejs/splide";
 
 window.Alpine = Alpine;
+Alpine.plugin(collapse);
 Alpine.start();
 
 const heroBanner = document.getElementById("hero-banner");
@@ -18,15 +20,16 @@ if (heroBanner != undefined) {
     }).mount();
 }
 
-const relateBanner = document.getElementById("relate-items");
-if (relateBanner != undefined) {
+const relatedItems = document.getElementById("relate-items");
+if (relatedItems != undefined) {
     new Splide("#relate-items", {
         perPage: 5,
         gap: '1rem',
         breakpoints: {
-            1170: { perPage: 5, gap: '1rem' },
-            768: { perPage: 3, gap: 0 },
-            640: { perPage: 2, gap: 0 },
+            1280: { perPage: 5 },
+            1024: { perPage: 4 },
+            768: { perPage: 3 },
+            640: { perPage: 2 },
         },
         pagination: false,
         classes: {
@@ -42,9 +45,10 @@ if (flashSale != undefined) {
         perPage: 5,
         gap: '1rem',
         breakpoints: {
-            1170: { perPage: 5, gap: '1rem' },
-            768: { perPage: 3, gap: 0 },
-            640: { perPage: 2, gap: 0 },
+            1280: { perPage: 5 },
+            1024: { perPage: 4 },
+            768: { perPage: 3 },
+            640: { perPage: 2 },
         },
         pagination: false,
         classes: {
