@@ -1,10 +1,11 @@
 import "./bootstrap";
+import "../../vendor/masmerise/livewire-toaster/resources/js";
 import Alpine from "alpinejs";
 import collapse from "@alpinejs/collapse";
 import Splide from "@splidejs/splide";
 
-window.Alpine = Alpine;
 Alpine.plugin(collapse);
+window.Alpine = Alpine;
 Alpine.start();
 
 const heroBanner = document.getElementById("hero-banner");
