@@ -63,4 +63,9 @@ class CartManager
     {
         return static::items()->sum('subtotal');
     }
+
+    public static function count(): int
+    {
+        return static::items()->count();
+    }
 }
