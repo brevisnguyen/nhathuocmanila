@@ -12,6 +12,7 @@
     <body class="antialiased font-nunito">
         <livewire:header/>
         {{ $slot }}
+        <x-toaster-hub />
         <livewire:footer />
         @livewireScripts
     </body>

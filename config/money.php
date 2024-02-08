@@ -7,7 +7,7 @@ return [
      |--------------------------------------------------------------------------
      */
     'locale' => config('app.locale', 'en_US'),
-    'defaultCurrency' => config('app.currency', 'PHP'),
+    'defaultCurrency' => 'PHP',
     'defaultFormatter' => null,
     'defaultSerializer' => null,
     'isoCurrenciesPath' => __DIR__.'/../vendor/moneyphp/money/resources/currency.php',
