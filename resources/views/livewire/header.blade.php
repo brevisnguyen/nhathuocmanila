@@ -46,10 +46,7 @@
                     </nav>
                 </div>
                 <div class="contact col-span-2 px-2 text-right">
-                    <a href="{{ route('home') }}" class="hover:text-lime-600">
-                        <span class="mr-1 hidden md:inline-block">Giỏ hàng</span>
-                        <i class="fa-solid fa-cart-shopping text-2xl md:text-base text-rose-500"></i>
-                    </a>
+                    <livewire:cart-count />
                 </div>
             </div>
         </div>
