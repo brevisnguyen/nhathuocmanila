@@ -1,5 +1,5 @@
 <div>
-    <a href="{{ route('home') }}" class="hover:text-lime-600 flex items-center justify-center">
+    <a href="{{ route('cart') }}" class="hover:text-lime-600 flex items-center justify-center">
         <span class="mr-1 hidden md:inline-block">Giỏ hàng</span>
         <div class="relative">
             <i class="fa-solid fa-cart-shopping text-2xl md:text-base text-rose-500"></i>

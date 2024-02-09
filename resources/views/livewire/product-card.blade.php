@@ -16,12 +16,14 @@
                 <span>{{ $product->name }}</span>
             </a>
             <p class="text-sm font-semibold text-blue-500 mt-1 md:mt-2">
-                <?php $sku = $product->productUnits->where('default', true)->first(); ?>
-                {{ money($sku?->amount ?? 999) .' / '. $sku?->unit?->name }}
+                {{ money($default_sku?->amount ?? 999) .' / '. $default_sku?->unit?->name }}
             </p>
         </div>
         <div class="mx-auto">
-            <button class="px-6 md:px-4 py-2 my-2 flex gap-x-2 items-center justify-center mx-auto bg-lime-600 text-white w-full rounded-xl">
+            <button
+                wire:click="addToCart(),Toaster.success('Thêm vào giỏ hàng thành công!')"
+                class="px-6 md:px-4 py-2 my-2 flex gap-x-2 items-center justify-center mx-auto bg-lime-600 text-white w-full rounded-xl"
+            >
                 <i class="fa-solid fa-cart-plus"></i>
                 <p><span class="block md:hidden">Bỏ túi</span><span class="hidden md:block">Thêm vào giỏ</span></p>
             </button>
