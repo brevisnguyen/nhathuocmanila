@@ -10,7 +10,8 @@ class WebSettings extends Settings
     public string $facebook;
     public string $tiktok;
     public string $hotline;
-    public string $logo;
+    public string $logo_landscape;
+    public string $logo_portrait;
     public array $banner;
     public string $mid_banner;
     public array $thumb_size;

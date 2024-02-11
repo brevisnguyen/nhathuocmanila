@@ -51,9 +51,16 @@ class WebManage extends SettingsPage
                         Forms\Components\Tabs\Tab::make('Hình Ảnh')
                             ->icon('heroicon-o-photo')
                             ->schema([
-                                Forms\Components\FileUpload::make('logo')
+                                Forms\Components\FileUpload::make('logo_landscape')
                                     ->columnSpanFull()
-                                    ->label('Ảnh logo')
+                                    ->label('Ảnh logo ngang')
+                                    ->required()
+                                    ->image()
+                                    ->preserveFilenames()
+                                    ->imageEditor(),
+                                Forms\Components\FileUpload::make('logo_portrait')
+                                    ->columnSpanFull()
+                                    ->label('Ảnh logo dọc')
                                     ->required()
                                     ->image()
                                     ->preserveFilenames()

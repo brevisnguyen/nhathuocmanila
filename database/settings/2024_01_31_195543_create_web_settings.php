@@ -10,7 +10,8 @@ return new class extends SettingsMigration
         $this->migrator->add('website.facebook', '');
         $this->migrator->add('website.tiktok', '');
         $this->migrator->add('website.hotline', '');
-        $this->migrator->add('website.logo', '');
+        $this->migrator->add('website.logo_landscape', '');
+        $this->migrator->add('website.logo_portrait', '');
         $this->migrator->add('website.banner', []);
         $this->migrator->add('website.mid_banner', '');
         $this->migrator->add('website.thumb_size', [100, 100]);
