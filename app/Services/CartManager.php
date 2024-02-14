@@ -1,23 +1,27 @@
 <?php
 
 namespace App\Services;
+use App\Enums\Status;
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class CartManager
 {
     protected static $session_key = 'carts';
 
-    public static function add(int $product_unit_id, int $quantity, $amount)
+    public static function add(int $sku, int $product_id, int $unit_id, int $quantity, $amount)
     {
         $items = static::items();
-        $item = static::item($product_unit_id);
+        $item = static::item($sku);
 
         if ($item) {
-            $item->quantity = $quantity;
+            $item->quantity += $quantity;
         } else {
-            $item = Cart::fromAttribute($product_unit_id, $quantity, $amount);
-            $items->put($product_unit_id, $item);
+            $item = Cart::fromAttribute($sku, $product_id, $unit_id, $quantity, $amount);
+            $items->put($sku, $item);
         }
 
         session([static::$session_key => $items]);
@@ -25,19 +29,40 @@ class CartManager
         return $item;
     }
 
-    public static function remove(int $product_unit_id)
+    public static function remove($sku)
     {
         $items = static::items();
-        $items->pull($product_unit_id);
+        $items->pull($sku);
 
-        session([static::$session_key => $items->all()]);
+        session([static::$session_key => $items]);
 
         return true;
     }
 
-    public static function update()
+    public static function update($sku, $quantity = null, $amount = null)
     {
+        $items = static::items();
+        $item = static::item($sku);
 
+        if ($item) {
+            if (! is_null($quantity)) {
+                $item->quantity = $quantity;
+            }
+            if (! is_null($amount)) {
+                $item->amount = $amount;
+            }
+
+            if ($item->quantity <= 0) {
+                return static::remove($sku);
+            } else {
+                $items->put($sku, $item);
+                session([static::$session_key => $items]);
+            }
+
+            return $item;
+        }
+
+        return null;
     }
 
     public static function clear()
@@ -47,9 +72,9 @@ class CartManager
         return true;
     }
 
-    public static function item(int $product_unit_id): Cart|null
+    public static function item($sku): Cart|null
     {
-        $item = static::items()->firstWhere('product_unit_id', $product_unit_id);
+        $item = static::items()->firstWhere('sku', $sku);
         return $item;
     }
 
@@ -67,5 +92,24 @@ class CartManager
     public static function count(): int
     {
         return static::items()->count();
+    }
+
+    public static function order(): Order
+    {
+        $order = new Order();
+
+        $order->user_id = Auth::id();
+        $order->status = Status::PENDING;
+        $order->subtotal = static::subtotal();
+        $order->shipping = 0;
+        $order->save();
+
+        foreach (static::items() as $item) {
+            $orderItem = new OrderItem($item->toArray());
+
+            $order->items()->save($orderItem);
+        }
+
+        return $order;
     }
 }
