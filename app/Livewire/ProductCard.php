@@ -8,18 +8,18 @@ use Livewire\Component;
 class ProductCard extends Component
 {
     public $product;
-    public $default_sku;
+    public $sku;
 
     public function addToCart()
     {
-        CartManager::add($this->default_sku->id, 1, $this->default_sku->amount);
+        CartManager::add($this->sku->id, $this->product->id, $this->sku->unit_id, 1, $this->sku->amount);
         $this->dispatch('cart-updated');
     }
 
     public function mount($product)
     {
         $this->product = $product;
-        $this->default_sku = $product->productUnits->firstWhere('default', true);
+        $this->sku = $product->productUnits->firstWhere('default', true);
     }
 
     public function render()
