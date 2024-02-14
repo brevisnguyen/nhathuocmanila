@@ -28,7 +28,7 @@ class ShowProduct extends Component
         ])->first();
 
         if ($sku) {
-            CartManager::add($sku->id, $quantity, $sku->amount);
+            CartManager::add($sku->id, $sku->product_id, $unit_id, $quantity, $sku->amount);
             $this->dispatch('cart-updated');
         }
     }

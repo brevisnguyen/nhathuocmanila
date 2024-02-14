@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="footer-bot mt-4 pt-3 border-t border-gray-300">
-            <p class="text-center md:text-left">© 2023 Nhà Thuốc Manila. Đã đăng ký bản quyền | Trang web được tạo bởi <a href="http://t.me/brevisnguyen" target="_blank">@brevisnguyen</a></p>
+            <p class="text-center md:text-left">© 2023 Nhà Thuốc Manila. Đã đăng ký bản quyền</p>
         </div>
     </div>
 </div>

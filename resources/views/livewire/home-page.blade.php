@@ -4,17 +4,11 @@
             <section id="hero-banner" class="splide max-h-96" aria-label="Banner">
                 <div class="splide__track">
                     <ul class="splide__list">
-                        @if($banners)
-                            @foreach($banners as $banner)
-                            <li class="splide__slide">
-                                <img class="w-full object-cover max-h-96" src="{{ $banner }}" alt="{{ config('app.name') }}">
-                            </li>
-                            @endforeach
-                        @else
-                            <li class="splide__slide">
-                                <img class="w-full object-cover max-h-96" src="{{ asset('storage/dummy_600x600.png') }}">
-                            </li>
-                        @endif
+                        @foreach($banners as $banner)
+                        <li class="splide__slide">
+                            <img class="w-full object-cover max-h-96" src="{{ $banner }}" alt="{{ config('app.name') }}">
+                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </section>

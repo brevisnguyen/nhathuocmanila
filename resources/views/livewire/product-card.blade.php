@@ -16,7 +16,7 @@
                 <span>{{ $product->name }}</span>
             </a>
             <p class="text-sm font-semibold text-blue-500 mt-1 md:mt-2">
-                {{ money($default_sku?->amount ?? 999) .' / '. $default_sku?->unit?->name }}
+                {{ money($sku?->amount ?? 999) .' / '. $sku?->unit?->name }}
             </p>
         </div>
         <div class="mx-auto">

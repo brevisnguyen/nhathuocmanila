@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('phone');
-            $table->string('address');
-            $table->string('payment');
-            $table->string('status');
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('payment')->nullable();
+            $table->string('status')->nullable();
             $table->string('attachments', 512)->nullable();
             $table->string('description')->nullable();
             $table->decimal('subtotal')->default(0);

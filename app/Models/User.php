@@ -19,6 +19,7 @@ class User extends Authenticatable
         'password' => 'hashed',
         'role' => Role::class
     ];
+    protected $attributes = ['role' => Role::GUEST];
 
     public function orders(): HasMany
     {
