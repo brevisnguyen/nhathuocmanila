@@ -33,20 +33,21 @@
         </div>
         <div class="container">
             <div class="grid grid-cols-12 items-center">
-                <div class="logo col-span-9 md:col-span-3 px-2 py-3">
-                    <a href="{{ route('home') }}"><img src="{{ asset('storage/'.$website['logo']) }}" alt="{{ config('app.name') }}"></a>
+                <div class="logo col-span-8 md:col-span-3 px-2 py-3">
+                    <a href="{{ route('home') }}"><img src="{{ asset('storage/'.$website['logo_landscape']) }}" alt="{{ config('app.name') }}"></a>
                 </div>
-                <div class="nav col-span-7 px-2 mx-auto hidden md:block">
+                <div class="nav md:col-span-7 px-2 mx-auto hidden md:block">
                     <nav class="py-4 uppercase font-bold flex md:gap-x-3 lg:gap-x-6 xl:gap-x-10 md:text-sm lg:text-base">
                         <a href="{{ route('home') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('home')])>trang chủ</a>
-                        <a href="{{ route('about_us') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('about_us')])>giới thiệu</a>
+                        <a href="{{ route('home') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('about_us')])>giới thiệu</a>
                         <a href="{{ route('post.index') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('post.index')])>tin tức</a>
-                        <a href="{{ route('order.show') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('order.show')])>đơn hàng</a>
-                        <a href="{{ route('delivery') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('delivery')])>trợ giúp</a>
+                        <a href="{{ route('profile') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('profile')])>đơn hàng</a>
+                        <a href="{{ route('home') }}" @class(['hover:text-lime-500', 'text-lime-500'=> request()->routeIs('delivery')])>trợ giúp</a>
                     </nav>
                 </div>
-                <div class="contact col-span-2 px-2 text-right">
-                    <livewire:cart-count />
+                <div class="col-span-4 col-start-10 md:col-span-2 flex items-center justify-around">
+                    <livewire:cart-count id="cart-count" />
+                    <a href="#" class="text-2xl md:text-base m-auto text-blue-500"><i class="fa-solid fa-user"></i></a>
                 </div>
             </div>
         </div>
