@@ -8,6 +8,13 @@ use Livewire\Component;
 
 class Profile extends Component
 {
+    public $user;
+
+    public function mount()
+    {
+        $this->user = Auth::user();
+    }
+
     public function logout()
     {
         Auth::guard('web')->logout();

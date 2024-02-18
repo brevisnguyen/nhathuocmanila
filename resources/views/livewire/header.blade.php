@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-span-4 col-start-10 md:col-span-2 flex items-center justify-around">
                     <livewire:cart-count id="cart-count" />
-                    <a href="#" class="text-2xl md:text-base m-auto text-blue-500"><i class="fa-solid fa-user"></i></a>
+                    <a href="{{ route('profile') }}" class="text-2xl md:text-base m-auto text-blue-500"><i class="fa-solid fa-user"></i></a>
                 </div>
             </div>
         </div>
