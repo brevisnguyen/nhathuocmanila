@@ -238,7 +238,7 @@ class OrderResource extends Resource
                 ->maxLength(255)
                 ->hint('Cách dùng, liều dùng của đơn thuốc')
                 ->columnSpan('full')
-                ->toolbarButtons(['bold', 'italic']),
+                ->toolbarButtons(['bold', 'italic', 'link']),
 
             Forms\Components\FileUpload::make('attachments')
                 ->label('Hình ảnh')
