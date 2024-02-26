@@ -94,7 +94,7 @@
                 <span>Tổng tiền:</span>
                 <span>{{ money($subtotal) }}</span>
             </div>
-            <a href="{{ route('order') }}" wire:navigate class=" bg-lime-600 text-white py-4 w-4/12 text-center">Đặt hàng</a>
+            <a href="{{ route('placed-order') }}" wire:navigate class=" bg-lime-600 text-white py-4 w-4/12 text-center">Đặt hàng</a>
         </div>
     </section>
     @endif

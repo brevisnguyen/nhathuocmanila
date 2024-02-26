@@ -10,7 +10,7 @@
         @livewireStyles
         <script src="https://kit.fontawesome.com/fdd48f8ac1.js" crossorigin="anonymous"></script>
     </head>
-    <body class="antialiased font-nunito">
+    <body class="antialiased font-nunito scroll-smooth">
         <livewire:header/>
         {{ $slot }}
         <x-toaster-hub />
