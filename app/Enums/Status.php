@@ -17,8 +17,8 @@ enum Status: string implements HasLabel, HasColor, HasIcon
     public function getLabel(): string
     {
         return match ($this) {
-            self::PENDING => 'Đang chờ',
-            self::SHIPPING => 'Đang ship',
+            self::PENDING => 'Chờ xác nhận',
+            self::SHIPPING => 'Đang giao hàng',
             self::CANCELLED => 'Đã hủy',
             self::COMPLETED => 'Hoàn thành',
             self::IN_STOCK => 'Còn hàng',
@@ -45,6 +45,18 @@ enum Status: string implements HasLabel, HasColor, HasIcon
             self::COMPLETED => 'heroicon-m-check-badge',
             self::IN_STOCK => 'heroicon-o-check-circle',
             self::SOLD_OUT => 'heroicon-o-exclamation-triangle',
+        };
+    }
+
+    public function icon(): ?string
+    {
+        return match ($this) {
+            self::PENDING => '<i class="fa-regular fa-hourglass-half text-yellow-500"></i>',
+            self::SHIPPING => '<i class="fa-solid fa-truck-fast text-sky-500"></i>',
+            self::CANCELLED => '<i class="fa-solid fa-ban text-red-500"></i>',
+            self::COMPLETED => '<i class="fa-solid fa-circle-check text-green-500"></i>',
+            self::IN_STOCK => '',
+            self::SOLD_OUT => '',
         };
     }
 }
