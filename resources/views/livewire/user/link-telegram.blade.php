@@ -2,20 +2,24 @@
     <button
         x-data=""
         x-on:click.prevent="$dispatch('open-modal', 'link-telegram-modal')"
-        class="flex flex-col items-center bg-white p-2 font-semibold shadow w-full"
+        class="flex flex-col items-center lg:flex-row lg:justify-center lg:gap-x-3 p-2 lg:py-4 w-full shadow-md hover:shadow-lg"
     >
         <i class="fa-brands fa-telegram text-2xl text-sky-500"></i>
-        <p class="mt-2">Telegram</p>
+        <p class="mt-2 lg:mt-0">Telegram</p>
     </button>
 
     @teleport('body')
     <x-modal name="link-telegram-modal" :show="$errors->isNotEmpty()" focusable>
         <form wire:submit="linkToTelegram" class="p-6">
             <h2 class="text-lg font-bold text-gray-900 uppercase mb-5 text-center">Liên kết tài khoản Telegram</h2>
-
+            <p class="text-sm italic text-nowrap mb-5">
+                Việc liên kết tài khoản Telegram giúp quý khách nhận thông tin về đơn hàng
+                cũng như liên hệ với CSKH dễ dàng hơn.
+                Lấy ID bằng cách chat với Bot <a href="https://t.me/nhathuocmanila_bot" target="_blank" class="text-blue-500">@nhathuocmanila_bot</a>
+            </p>
             <div>
                 <label for="telegram_id" class="block font-medium text-sm text-gray-700">ID tài khoản Telegram</label>
-                <input wire:model="telegram_id" type="text" id="telegram_id" autofocus class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                <input wire:model="telegram_id" type="text" id="telegram_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                 @error('telegram_id') <span class="mt-2 text-sm text-red-600 space-y-1">{{ $message }}</span> @enderror
             </div>
 

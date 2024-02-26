@@ -2,14 +2,14 @@
     <button
         x-data=""
         x-on:click.prevent="$dispatch('open-modal', 'change-password-modal')"
-        class="flex flex-col items-center bg-white p-2 font-semibold shadow w-full"
+        class="flex flex-col items-center lg:flex-row lg:justify-center lg:gap-x-3 p-2 lg:py-4 w-full shadow-md hover:shadow-lg"
     >
         <i class="fa-solid fa-user-shield text-2xl text-yellow-500"></i>
-        <p class="mt-2">Bảo mật</p>
+        <p class="mt-2 lg:mt-0">Bảo mật</p>
     </button>
 
     @teleport('body')
-    <x-modal name="change-password-modal" :show="$errors->isNotEmpty()" focusable>
+    <x-modal name="change-password-modal" :show="$errors->isNotEmpty()">
         <form wire:submit="updatePassword" class="p-6">
             <h2 class="text-lg font-bold text-gray-900 uppercase mb-5 text-center">Cập nhật mật khẩu</h2>
 
@@ -21,7 +21,7 @@
 
             <div class="mt-4">
                 <label for="password_confirmation" class="block font-medium text-sm text-gray-700">Xác nhận mật khẩu</label>
-                <input wire:model="password_confirmation" type="password" id="password_confirmation" required autocomplete="new-password" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                <input wire:model="password_confirmation" placeholder="Nhập lại mật khẩu mới" type="password" id="password_confirmation" required autocomplete="new-password" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                 @error('password_confirmation') <span class="mt-2 text-sm text-red-600 space-y-1">{{ $message }}</span> @enderror
             </div>
 
