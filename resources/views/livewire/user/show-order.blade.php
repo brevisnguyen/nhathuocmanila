@@ -1,13 +1,23 @@
 <div>
     <div
         x-data="{ expanded: false }"
+        wire:loading.class="opacity-50"
         class="mb-3 lg:mb-5 border px-2 py-3 lg:p-4 rounded shadow"
     >
-        <div class="flex items-center justify-between text-sm lg:text-base mb-2.5 lg:mb-4 pb-1 lg:pb-2 border-b">
+        <div class="flex items-center justify-between text-sm lg:text-base mb-2.5 lg:mb-4 pb-2 border-b">
             <div class="text-amber-500">Mã ĐH: {{ $order->id }}</div>
-            <div class="flex items-center gap-x-2">
-                <span>{!! $order->status->icon() !!}</span>
-                <span class="capitalize">{{ $order->status->getLabel() }}</span>
+            <div class="flex items-center">
+                <p class="flex items-center">
+                    {!! $order->status->icon() !!}
+                    <span class="capitalize ml-2">{{ $order->status->getLabel() }}</span>
+                </p>
+                <button
+                    wire:click="$refresh"
+                    class="ml-4 text-sky-500 hover:text-sky-400"
+                    title="Làm mới"
+                >
+                    <i class="fa-solid fa-rotate"></i>
+                </button>
             </div>
         </div>
         <div

@@ -12,7 +12,14 @@ class ProductCard extends Component
 
     public function addToCart()
     {
-        CartManager::add($this->sku->id, $this->product->id, $this->sku->unit_id, 1, $this->sku->amount);
+        CartManager::add(
+            $this->sku->id,
+            $this->product->id,
+            $this->sku->unit_id,
+            1,
+            $this->sku->amount
+        );
+
         $this->dispatch('cart-updated');
     }
 

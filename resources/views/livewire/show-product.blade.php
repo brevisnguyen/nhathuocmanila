@@ -2,15 +2,12 @@
     <div class="h-2 md:h-4 lg:h-6 bg-neutral-100 my-3 md:my-6"></div>
     <div class="container">
         <div class="md:grid md:grid-cols-2 gap-y-4 gap-x-8">
-            <div class="product-image flex justify-center">
-                <picture>
-                    <source srcset="{{ $product->getFirstMediaUrl('products', 'medium') }}" media="(max-width: 800px)">
-                    <source srcset="{{ $product->getFirstMediaUrl('products', 'large') }}" media="(min-width: 800px)">
-                    <img class="" src="{{ asset('storage/dummy_600x600.png') }}">
-                </picture>
-            </div>
+            <picture class="mx-auto mb-6 md:mb-0">
+                <source srcset="{{ $product->getFirstMediaUrl('products', 'medium') }}" media="(max-width: 800px)">
+                <source srcset="{{ $product->getFirstMediaUrl('products', 'large') }}" media="(min-width: 800px)">
+                <img class="mb-6 md:mb-0" src="https://placehold.co/600x600">
+            </picture>
             <div
-                class="product-info mt-6 md:mt-0"
                 x-data="{
                     quantity: 1,
                     unitId: 1,
@@ -38,7 +35,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="product-price my-4 md:my-5">
+                <div class="my-4 md:my-5">
                     <div class="text-2xl font-bold text-lime-600 mb-3 md:mb-5" x-text="priceText"></div>
                     <div class="flex flex-nowrap">
                     @foreach($product->units as $unit)
@@ -82,7 +79,7 @@
                         <button x-on:click="quantity--" class="col-span-1 p-2 text-blue-500"><i class="fa-solid fa-minus"></i></button>
                         <input
                             x-model="quantity"
-                            type="number" name="quantity" id="quantity" max="99" min="1"
+                            type="number" name="quantity" id="quantity" max="99" min="1" readonly
                             class="outline-none border-none col-span-2 text-center out-of-range:bg-red-500">
                         <button x-on:click="quantity++" class="col-span-1 p-2 text-blue-500"><i class="fa-solid fa-plus"></i></button>
                     </div>
@@ -107,30 +104,32 @@
             </div>
         </div>
     </div>
+
     <div class="h-2 md:h-4 lg:h-6 bg-neutral-100 my-3 md:my-6"></div>
+
     <div
-        class="container relative mb-10"
-        x-data="{
-            expanded: false,
-            expandedText: 'Xem thêm<i class=\'fa-solid fa-chevron-down ml-1\'></i>',
-            toggle() {
-                expanded = !expanded;
-                expandedText = expanded ? 'Thu gọn<i class=\'fa-solid fa-chevron-up ml-1\'></i>' : 'Xem thêm<i class=\'fa-solid fa-chevron-down ml-1\'></i>';
-            }
-        }"
+        class="container mb-10"
+        x-data="{ expanded: false }"
     >
         <h3 class="font-bold text-lg mb-2">Thông tin {{ $product->name }}</h3>
-        <div
-            x-show="expanded"
-            x-collapse.duration.1000ms.min.50px
-        >
-            <div>{!! $product->description !!}</div>
-            <div class="absolute -bottom-8 text-center w-full py-1 flex justify-center items-end">
-                <button x-on:click="toggle" x-html="expandedText"></button>
-            </div>
+
+        <div x-show="expanded" x-collapse.duration.1000ms.min.50px>
+            {!! $product->description !!}
+        </div>
+
+        <div class="py-1 flex justify-center">
+            <button
+                x-on:click="expanded = ! expanded"
+                class="text-sm text-sky-500 hover:text-sky-600"
+            >
+                <span x-show="!expanded">Xem thêm <i class="fa-solid fa-chevron-down"></i></span>
+                <span x-show="expanded">Thu gọn <i class="fa-solid fa-chevron-up"></i></span>
+            </button>
         </div>
     </div>
+
     <div class="h-2 md:h-4 lg:h-6 bg-neutral-100 my-3 md:my-6"></div>
+
     <div class="container">
         <h3 class="font-bold text-lg mb-2">Sản phẩm liên quan</h3>
         @if($relatedProducts->isNotEmpty())
@@ -138,7 +137,7 @@
             <div class="splide__track">
                 <ul class="splide__list">
                 @foreach($relatedProducts as $product)
-                    <li class="splide__slide"><livewire:product-card :product="$product" /></li>
+                    <li class="splide__slide"><livewire:product-card :product="$product" :id="$product->id" /></li>
                 @endforeach
                 </ul>
             </div>
