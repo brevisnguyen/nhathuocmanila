@@ -47,7 +47,11 @@
                     <h2 class="font-bold text-xl md:text-2xl text-slate-800 capitalize">sản phẩm mới</h2>
                     <div class="text-center border-2 border-lime-400 w-1/2"></div>
                 </div>
-                <a href="{{ route('post.index') }}" class="flex items-center gap-x-1 text-sky-500">
+                <a
+                    class="flex items-center gap-x-1 text-sky-500"
+                    href="{{ route('all-products') }}"
+                    wire:navigate
+                >
                     <span>Xem thêm</span>
                     <i class="fa-solid fa-angle-right"></i>
                 </a>
@@ -59,43 +63,68 @@
             </div>
         </div>
     </section>
+    @if($posts)
     <section class="container my-6 md:my-8">
         <div class="mb-4 md:mb-10 flex justify-between">
             <div class="w-fit">
                 <h2 class="font-bold text-xl md:text-2xl text-slate-800 capitalize">tin tức mới nhất</h2>
                 <div class="text-center border-2 border-lime-400 w-1/2"></div>
             </div>
-            <a href="{{ route('post.index') }}" class="flex items-center gap-x-1 text-sky-500">
+            <a
+                class="flex items-center gap-x-1 text-sky-500"
+                href="{{ route('post-card') }}"
+                wire:navigate
+            >
                 <span>Xem thêm</span>
                 <i class="fa-solid fa-angle-right"></i>
             </a>
         </div>
-        @if($posts->isNotEmpty())
-        <div class="mt-4 flex flex-wrap md:gap-5">
-            <?php $first_post = $posts->first(); $posts = $posts->skip(1);?>
-            <div class="col-left basis-[100%] md:basis-[717px]">
-                <a class="block overflow-hidden rounded-lg" href="{{ $first_post->url }}">
-                    <picture class="!md:max-h-96 max-h-[380px] w-full rounded-lg object-fill aspect-video">
-                        <source srcset="{{ $first_post->getFirstMediaUrl('posts', 'medium') }}" media="(max-width: 800px)">
-                        <source srcset="{{ $first_post->getFirstMediaUrl('posts', 'large') }}" media="(min-width: 800px)">
-                        <img class="object-cover !rounded-lg" src="{{ asset('storage/dummy_600x600.png') }}">
-                    </picture>
-                </a>
-                <div class="pt-[12px]">
-                    <a class="mt-1 md:mt-2 block hover:text-lime-500" href="{{ $first_post->url }}">
-                        <h3 class="text-lg md:text-2xl font-bold">{{ $first_post->title }}</h3>
-                    </a>
-                    <a class="mt-1 md:mt-2 block" href="{{ $first_post->url }}">
-                        <p class="text-sm md:text-base line-clamp-2 md:line-clamp-3 text-ellipsis">{{ $first_post->content }}</p>
-                    </a>
-                </div>
-            </div>
-            <div class="mt-4 flex-1 md:col-span-2 md:mt-0">
-            @foreach($posts as $i => $post)
-                <livewire:post-card :post="$post" :key="$post->id" />
+        <div class="flex flex-wrap flex-col md:flex-row">
+            @foreach($posts as $post)
+                @if($loop->first)
+                    <div class="basis-full md:basis-7/12 mb-4 md:mb-0 md:mr-5">
+                        <a
+                            class="overflow-hidden group"
+                            href="{{ $post->url }}"
+                            wire:navigate
+                        >
+                            <picture class="aspect-video object-cover rounded">
+                                <source srcset="{{ $post->getFirstMediaUrl('posts', 'medium') }}" media="(max-width: 800px)">
+                                <source srcset="{{ $post->getFirstMediaUrl('posts', 'large') }}" media="(min-width: 800px)">
+                                <img class="aspect-video object-cover rounded" src="https://placehold.co/1280x720">
+                            </picture>
+                            <div class="mt-2">
+                                <h3 class="text-lg md:text-2xl font-bold line-clamp-1 text-ellipsis mb-1 group-hover:text-lime-600">{{ $post->title }}</h3>
+                                <p class="text-sm md:text-base line-clamp-2 text-ellipsis">{{ $post->content }}</p>
+                            </div>
+                        </a>
+                    </div>
+                @break
+                @endif
             @endforeach
+            <div class="flex-1 flex-col">
+                @foreach($posts as $post)
+                    @continue($loop->first)
+                    <div class="overflow-hidden mb-4">
+                        <a
+                            class="grid grid-cols-12 text-sm md:text-base overflow-hidden group"
+                            href="{{ $post->url }}"
+                            wire:navigate
+                        >
+                            <picture class="col-span-4 object-cover aspect-video rounded">
+                                <source srcset="{{ $post->getFirstMediaUrl('posts', 'thumb') }}" media="(max-width: 800px)">
+                                <source srcset="{{ $post->getFirstMediaUrl('posts', 'medium') }}" media="(min-width: 800px)">
+                                <img class="object-cover aspect-video rounded" src="https://placehold.co/320x180">
+                            </picture>
+                            <div class="ml-2 flex-1 col-span-8">
+                                <h3 class="font-semibold line-clamp-1 text-ellipsis mb-1 group-hover:text-lime-600">{{ $post->title }}</h3>
+                                <p class="line-clamp-2 text-ellipsis text-xs md:text-sm">{{ $post->content }}</p>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
-        @endif
     </section>
+    @endif
 </div>

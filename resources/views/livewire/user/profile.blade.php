@@ -10,6 +10,15 @@
                     <p class="font-bold text-base mb-1">{{ $user->name }}</p>
                     <p class="text-slate-700">{{ $user->email }}</p>
                 </div>
+                <div class="grow text-right lg:mt-1">
+                    <button
+                        class="text-xl lg:text-base pr-3 text-rose-600 hover:text-rose-500 hover:ml-2 lg:flex lg:items-center"
+                        wire:click="logout" wire:navigate
+                    >
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <p class="hidden lg:block lg:ml-2">Đăng xuất</p>
+                    </button>
+                </div>
             </div>
             <div class="mt-3 lg:mt-5 py-2 grid grid-cols-3 lg:grid-rows-3 lg:grid-cols-none gap-3">
                 <div>
