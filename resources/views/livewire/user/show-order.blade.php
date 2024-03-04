@@ -13,7 +13,8 @@
                 </p>
                 <button
                     wire:click="$refresh"
-                    class="ml-4 text-sky-500 hover:text-sky-400"
+                    x-bind:disabled="@json($order->status->value == 'completed')"
+                    class="ml-4 text-sky-500 hover:text-sky-400 disabled:text-gray-300"
                     title="Làm mới"
                 >
                     <i class="fa-solid fa-rotate"></i>
@@ -46,7 +47,7 @@
             <div class="block lg:grid lg:grid-cols-12 lg:gap-x-3">
                 <div class="mb-2.5 lg:mb-4 lg:col-span-4">
                     <h3 class="font-bold text-base">
-                        <i class="fa-solid fa-location-dot text-gray-500"></i>
+                        <i class="fa-solid fa-location-dot text-rose-500"></i>
                         <span class="ml-1.5">Thông tin nhận hàng</span>
                     </h3>
                     <p class="ml-6 text-sm lg:text-base text-gray-600">{{ $user->name }}</p>
