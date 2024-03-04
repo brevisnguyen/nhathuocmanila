@@ -60,9 +60,9 @@
                         ])>
                             đơn hàng
                         </a>
-                        <a href="{{ route('post-card') }}" wire:navigate @class([
+                        <a href="{{ route('questions') }}" wire:navigate @class([
                             'hover:text-lime-500',
-                            'text-lime-500' => request()->routeIs('post-card'),
+                            'text-lime-500' => request()->routeIs('questions'),
                         ])>
                             trợ giúp
                         </a>
