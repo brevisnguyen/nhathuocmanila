@@ -3,12 +3,15 @@
 namespace App\Livewire;
 
 use App\Models\Product;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class SearchBox extends Component
 {
+    #[Validate('required|min:2|max:255')]
+    public $name = '';
+
     public $results;
-    public $name;
     public bool $isShow;
 
     public function mount()
@@ -32,7 +35,9 @@ class SearchBox extends Component
 
     public function search()
     {
+        $this->validate();
 
+        $this->redirectRoute('all-products', ['name' => $this->name], true);
     }
 
     public function render()

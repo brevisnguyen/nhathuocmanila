@@ -1,6 +1,5 @@
 <div x-data="{
-    name: $wire.name,
-    highlightedIndex: 0,
+    highlightedIndex: '',
     highlightNext() {
         this.highlightedIndex++;
         if (this.highlightedIndex > this.$refs.results.children.length - 1) {
@@ -23,6 +22,9 @@
         });
     },
     onEnter() {
+        if (this.highlightedIndex === '') {
+            return false;
+        }
         let url = this.$refs.results.children[this.highlightedIndex].getAttribute('data-url');
         window.location = url;
     }
@@ -31,20 +33,23 @@
         <div class="hidden md:block font-bold px-3">Tất cả danh mục</div>
 
         <input
+            required
             wire:model.live.debounce.300ms="name"
             x-on:keydown.down.stop.prevent="highlightNext"
             x-on:keydown.up.stop.prevent="highlighPrevious"
             x-on:keyup.enter.stop.prevent="onEnter"
+            x-on:keyup.escape.stop.prevent="$wire.name = '', $wire.isShow = false, $wire.$refresh()"
             type="text" placeholder="Bạn muốn tìm thuốc gì ạ?"
             class="grow border-none outline-none focus:ring-0">
 
         <button type="submit" class="h-12 px-4 bg-lime-500 text-white">Tìm kiếm</button>
     </form>
+    @error('name') <span class="mt-2 text-sm text-red-600 space-y-1">{{ $message }}</span> @enderror
     <div x-show.important="$wire.isShow" x-transition class="z-20 absolute w-full bg-white">
         <ul x-ref="results" class="border">
             @foreach ($results as $item)
-                <li data-url="{{ $item->url }}" class="border-b px-2 py-1 hover:bg-gray-100" x-bind:class="{'bg-gray-100': @json($loop->index) === highlightedIndex}">
-                    <a href={{ $item->url }}" class="flex">
+                <li wire:key="{{ $item->id }}" data-url="{{ $item->url }}" class="border-b px-2 py-1 hover:bg-gray-100" x-bind:class="{'bg-gray-100': @json($loop->index) === highlightedIndex}">
+                    <a href="{{ $item->url }}" wire:navigate class="flex">
                         <picture class="aspect-square object-cover h-12 w-12">
                             <source srcset="{{ $item->getFirstMediaUrl('products', 'thumb') }}">
                             <img class="aspect-square object-cover h-12 w-12" src="https://placehold.co/50x50">
