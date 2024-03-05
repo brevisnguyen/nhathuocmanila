@@ -84,6 +84,6 @@ class Login extends Component
     #[Layout('layouts.guest')]
     public function render()
     {
-        return view('livewire.auth.login');
+        return view('livewire.auth.login')->title('Đăng nhập');
     }
 }

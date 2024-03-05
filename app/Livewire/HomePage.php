@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Settings\WebSettings;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class HomePage extends Component
@@ -47,6 +48,7 @@ class HomePage extends Component
         );
     }
 
+    #[Title('Trang chủ')]
     public function render()
     {
         return view('livewire.home-page');

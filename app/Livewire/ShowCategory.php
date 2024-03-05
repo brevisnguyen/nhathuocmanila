@@ -44,6 +44,7 @@ class ShowCategory extends Component
     {
         return view('livewire.show-category', [
             'products' => $this->queryMedicines()
-        ]);
+        ])
+        ->title('Danh mục '.$this->category->name);
     }
 }

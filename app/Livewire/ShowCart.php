@@ -34,6 +34,6 @@ class ShowCart extends Component
 
     public function render()
     {
-        return view('livewire.show-cart');
+        return view('livewire.show-cart')->title('Giỏ hàng');
     }
 }

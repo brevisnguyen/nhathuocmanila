@@ -22,6 +22,7 @@ class AllProducts extends Component
             })
             ->latest('updated_at')
             ->paginate(15),
-        ]);
+        ])
+        ->title($this->name == '' ? 'Tất cả thuốc' : 'Tìm kiếm '.$this->name);
     }
 }

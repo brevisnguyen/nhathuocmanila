@@ -1,17 +1,17 @@
 <?php
 
-use App\Livewire\AboutUs;
-use App\Livewire\CategoryIndex;
-use App\Livewire\DeliveryPolicy;
+use App\Livewire\AllPosts;
+use App\Livewire\AllProducts;
+use App\Livewire\Auth\Login;
+use App\Livewire\Auth\Register;
 use App\Livewire\HomePage;
-use App\Livewire\PaymentPolicy;
-use App\Livewire\PostIndex;
-use App\Livewire\ProductIndex;
+use App\Livewire\PlacedOrder;
+use App\Livewire\QuestionAnswerPage;
 use App\Livewire\ShowCart;
 use App\Livewire\ShowCategory;
-use App\Livewire\ShowOrder;
 use App\Livewire\ShowPost;
 use App\Livewire\ShowProduct;
+use App\Livewire\User\Profile;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,23 +25,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', function () {
-    return redirect(route('filament.admin.auth.login'));
-})->name('login');
-
 Route::get('/', HomePage::class)->name('home');
-
 Route::get('/danh-muc/{category}', ShowCategory::class)->name('category');
 
+Route::get('/thuoc', AllProducts::class)->name('all-products');
 Route::get('/thuoc/{product}', ShowProduct::class)->name('product');
-Route::get('/thuoc', ProductIndex::class)->name('product.index');
 
+Route::get('/bai-viet', AllPosts::class)->name('post-card');
 Route::get('/bai-viet/{post}', ShowPost::class)->name('post');
-Route::get('/bai-viet', PostIndex::class)->name('post.index');
 
-Route::get('/gio-hang', ShowCart::class)->name('cart.show');
-Route::get('/don-hang', ShowOrder::class)->name('order.show');
+Route::get('/gio-hang', ShowCart::class)->name('cart');
+Route::get('/cau-hoi-thuong-gap', QuestionAnswerPage::class)->name('questions');
 
-Route::get('/gioi-thieu', AboutUs::class)->name('about_us');
-Route::get('/chinh-sach-giao-hang', DeliveryPolicy::class)->name('delivery');
-Route::get('/chinh-sach-thanh-toan', PaymentPolicy::class)->name('payment');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', Profile::class)->name('profile');
+    Route::get('/dat-hang', PlacedOrder::class)->name('placed-order');
+});
+
+/**
+ * Authentication
+ */
+Route::middleware('guest')->group(function () {
+    Route::get('/register', Register::class)->name('register');
+    Route::get('/login', Login::class)->name('login');
+});

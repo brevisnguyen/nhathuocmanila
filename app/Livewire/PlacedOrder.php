@@ -60,6 +60,6 @@ class PlacedOrder extends Component
 
     public function render()
     {
-        return view('livewire.placed-order');
+        return view('livewire.placed-order')->title('Đặt hàng');
     }
 }

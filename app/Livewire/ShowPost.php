@@ -20,6 +20,7 @@ class ShowPost extends Component
 
         return view('livewire.show-post', [
             'posts' => $posts,
-        ]);
+        ])
+        ->title($this->post->title);
     }
 }

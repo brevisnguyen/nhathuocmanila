@@ -33,6 +33,6 @@ class Register extends Component
     #[Layout('layouts.guest')]
     public function render()
     {
-        return view('livewire.auth.register');
+        return view('livewire.auth.register')->title('Đăng ký');
     }
 }

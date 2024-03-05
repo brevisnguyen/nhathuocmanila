@@ -50,6 +50,7 @@ class ShowProduct extends Component
 
     public function render()
     {
-        return view('livewire.show-product');
+        return view('livewire.show-product')
+            ->title('Thuốc '.$this->product->name);
     }
 }
