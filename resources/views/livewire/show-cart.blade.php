@@ -22,7 +22,7 @@
                     <div class="w-5/12 flex">
                         <picture class="object-cover w-24 h-auto">
                             <source srcset="{{ $item->product?->getFirstMediaUrl('products', 'thumb') }}">
-                            <img class="object-cover w-full" src="{{ asset('storage/dummy_600x600.png') }}">
+                            <img class="object-cover w-full" src="https://placehold.co/150x150">
                         </picture>
                         <div class="flex flex-col ml-8 overflow-hidden">
                             <p class="line-clamp-3 mr-3 mb-3 text-ellipsis">{{ $item->product?->name }}</p>
@@ -55,9 +55,9 @@
         @foreach ($items as $item)
         <div class="grid grid-cols-12 mb-3">
             <div class="col-span-3">
-                <picture class="object-cover">
+                <picture class="object-cover aspect-square">
                     <source srcset="{{ $item->product?->getFirstMediaUrl('products', 'thumb') }}">
-                    <img src="{{ asset('storage/dummy_600x600.png') }}">
+                    <img class="h-auto aspect-square object-cover" src="https://placehold.co/150x150">
                 </picture>
             </div>
             <div class="col-span-9 ml-2 flex flex-col overflow-hidden">

@@ -28,7 +28,7 @@
             <div class="grid grid-cols-12 gap-x-3">
                 <picture class="col-span-3 md:col-span-2 lg:w-28 h-auto">
                     <source srcset="{{ $order->items->first()->product->getFirstMediaUrl('products', 'thumb') }}">
-                    <img class="rounded-md" src="{{ asset('storage/dummy_600x600.png') }}">
+                    <img class="rounded-md" src="https://placehold.co/150x150">
                 </picture>
                 <div class="col-span-9 md:col-span-10 flex flex-col gap-y-2 overflow-hidden text-xs lg:text-sm">
                     <h3 class="text-sm lg:text-base text-ellipsis font-semibold">{{ $order->items->first()->product->name }}</h3>
@@ -71,16 +71,16 @@
                 @foreach($order->items as $item)
                 <div class="grid grid-cols-12 gap-x-3 py-2 border-b">
                     <picture class="col-span-3 md:col-span-2 lg:w-28 h-auto">
-                        <source srcset="{{ $order->items->first()->product->getFirstMediaUrl('products', 'thumb') }}">
-                        <img class="rounded-md" src="{{ asset('storage/dummy_600x600.png') }}">
+                        <source srcset="{{ $item->product->getFirstMediaUrl('products', 'thumb') }}">
+                        <img class="rounded-md" src="https://placehold.co/150x150">
                     </picture>
                     <div class="col-span-9 md:col-span-10 flex flex-col gap-y-2 overflow-hidden text-xs lg:text-sm">
-                        <h3 class="text-sm lg:text-base text-ellipsis font-semibold">{{ $order->items->first()->product->name }}</h3>
+                        <h3 class="text-sm lg:text-base text-ellipsis font-semibold">{{ $item->product->name }}</h3>
                         <div class="flex items-center justify-between">
-                            <span>Quy cách: {{ $order->items->first()->unit->name }}</span>
-                            <span class="font-semibold">x{{ $order->items->first()->quantity }}</span>
+                            <span>Quy cách: {{ $item->unit->name }}</span>
+                            <span class="font-semibold">x{{ $item->quantity }}</span>
                         </div>
-                        <div class="text-right text-rose-500">{{ money($order->items->first()->subtotal) }}</div>
+                        <div class="text-right text-rose-500">{{ money($item->subtotal) }}</div>
                     </div>
                 </div>
                 @endforeach

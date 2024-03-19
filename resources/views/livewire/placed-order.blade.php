@@ -23,7 +23,7 @@
                     <label for="payment" class="block font-medium text-sm text-gray-700">Phương thức thanh toán<span class="text-rose-500">*</span></label>
                     <div class="flex gap-x-3 md:gap-x-8 mt-1">
                         <label
-                            class="flex px-4 py-2 border rounded shadow-md"
+                            class="flex px-4 py-2 border rounded shadow-md cursor-pointer"
                             x-bind:class="{ 'bg-lime-700 text-white': payment == '{{ \App\Enums\Payment::SHIP_COD->value }}' }"
                         >
                             <input type="radio" wire:model="payment" x-model="payment" value="{{ \App\Enums\Payment::SHIP_COD->value }}" class="sr-only opacity-0" />
@@ -33,7 +33,7 @@
                             </span>
                         </label>
                         <label
-                            class="flex px-4 py-2 border rounded shadow-md"
+                            class="flex px-4 py-2 border rounded shadow-md cursor-pointer"
                             x-bind:class="{ 'bg-lime-700 text-white': payment == '{{ \App\Enums\Payment::BANKING->value }}' }"
                         >
                             <input type="radio" wire:model="payment" x-model="payment" value="{{ \App\Enums\Payment::BANKING->value }}" class="sr-only opacity-0" />
@@ -58,9 +58,9 @@
                 @foreach ($items as $item)
                 <div class="grid grid-cols-12 py-2">
                     <div class="col-span-3">
-                        <picture class="object-cover">
+                        <picture class="object-cover aspect-square h-auto w-24 md:w-28">
                             <source srcset="{{ $item->product?->getFirstMediaUrl('products', 'thumb') }}">
-                            <img class="w-28 h-auto" src="{{ asset('storage/dummy_600x600.png') }}">
+                            <img class="h-auto w-24 md:w-28 aspect-square object-cover" src="https://placehold.co/150x150">
                         </picture>
                     </div>
                     <div class="col-span-9 ml-2 flex flex-col overflow-hidden text-sm md:text-base">
