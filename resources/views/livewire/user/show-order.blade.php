@@ -59,7 +59,7 @@
                         <i class="fa-regular fa-pen-to-square text-amber-500"></i>
                         <span class="ml-1">Ghi chú</span>
                     </h3>
-                    <div class="ml-6 text-sm lg:text-base text-gray-600">{!! $order->description !!}</div>
+                    <div class="ml-6 text-sm lg:text-base text-gray-600 order-note">{!! $order->description !!}</div>
                 </div>
             </div>
 

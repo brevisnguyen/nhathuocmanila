@@ -25,7 +25,6 @@
         @apply bg-lime-700 rounded-md;
     }
 }
-
 .splide__pagination__page {
     @apply bg-gray-400 !important;
 }
@@ -43,4 +42,7 @@
 }
 .splide__r_arrow--prev {
     @apply left-1;
+}
+.order-note a {
+    @apply text-sky-500 underline hover:text-sky-600;
 }
