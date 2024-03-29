@@ -2,6 +2,7 @@
 /** @var SergiX44\Nutgram\Nutgram $bot */
 
 use App\Http\Controllers\TelegramController;
+use App\Telegram\Commands\StartCommand;
 use SergiX44\Nutgram\Nutgram;
 
 /*
@@ -14,3 +15,5 @@ use SergiX44\Nutgram\Nutgram;
 |
 */
 Route::post('/webhook', TelegramController::class);
+
+$bot->registerCommand(StartCommand::class);
