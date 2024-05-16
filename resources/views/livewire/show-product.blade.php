@@ -40,7 +40,7 @@
                     <div class="flex flex-nowrap">
                     @foreach($product->units as $unit)
                         <div
-                            class="px-4 py-2 rounded-md mr-4"
+                            class="px-4 py-2 rounded-md mr-4 cursor-pointer"
                             x-bind:class="unitId == '{{$unit->id}}' ? 'bg-lime-700 text-white' : 'bg-slate-200 text-gray-700'"
                             x-on:click="setPrice('{{ $unit->id }}', '{{ $unit->name }}', '{{ money($unit->pivot->amount) }}')"
                         >
@@ -84,6 +84,11 @@
                         <button x-on:click="quantity++" class="col-span-1 p-2 text-blue-500"><i class="fa-solid fa-plus"></i></button>
                     </div>
                 </div>
+                @if ($product->status == App\Enums\Status::SOLD_OUT)
+                    <div class="mb-3 md:mb-5 lg:mb-8">
+                        <p class="text-rose-600 font-semibold text-sm md:text-base">Sản phẩm tạm hết hàng!</p>
+                    </div>
+                @endif
                 <div class="action-button mb-3 md:mb-5 lg:mb-8 grid grid-cols-12">
                     <a
                         href="{{ 'https://t.me/' . app(\App\Settings\WebSettings::class)->telegram }}"
@@ -94,7 +99,8 @@
                         Liên hệ
                     </a>
                     <button
-                        class="px-4 py-2 flex items-center justify-center col-span-8 md:col-span-6 col-start-5 md:col-start-6 rounded-xl bg-blue-500 text-white"
+                        @disabled($product->status == App\Enums\Status::SOLD_OUT)
+                        class="px-4 py-2 flex items-center justify-center col-span-8 md:col-span-6 col-start-5 md:col-start-6 rounded-xl bg-blue-500 text-white disabled:opacity-70"
                         wire:click="addToCart(unitId, quantity),Toaster.success('Thêm vào giỏ hàng thành công!')"
                     >
                         <i class="fa-solid fa-cart-plus mr-1 md:mr-2"></i>
