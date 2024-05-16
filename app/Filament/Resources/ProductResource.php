@@ -118,7 +118,7 @@ class ProductResource extends Resource
                     ->conversion('thumb'),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Tên')
-                    ->searchable(isIndividual: true)
+                    ->searchable()
                     ->weight(\Filament\Support\Enums\FontWeight::Bold)
                     ->copyable(),
                 Tables\Columns\TextColumn::make('status')
