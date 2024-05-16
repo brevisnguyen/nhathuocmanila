@@ -2,6 +2,7 @@
     @if($getState())
     <div class="text-xs flex flex-col">
     @foreach($getState() as $state)
+        @if ($state->default)
         <span
             @style([
                 'border-width: 1px',
@@ -14,6 +15,7 @@
         >
             {{ money($state->amount) }} / {{ $state->unit->name }}
         </span>
+        @endif
     @endforeach
     </div>
     @endif
