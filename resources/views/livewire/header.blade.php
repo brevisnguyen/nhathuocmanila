@@ -78,8 +78,9 @@
                             <p class="hidden md:block">{{ auth()->user()->name }}</p>
                         </a>
                     @else
-                        <a wire:navigate href="{{ route('profile') }}" class="text-2xl md:text-base text-blue-500">
-                            <i class="fa-solid fa-user"></i>
+                        <a wire:navigate href="{{ route('profile') }}" class="text-blue-500">
+                            <span class="hidden md:block text-sm">Đăng nhập/Đăng ký</span>
+                            <i class="fa-solid fa-user block md:hidden text-2xl"></i>
                         </a>
                     @endif
                 </div>
