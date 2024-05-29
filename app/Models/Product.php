@@ -57,7 +57,7 @@ class Product extends Model implements HasMedia
         return 'slug';
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(Media|null $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->fit(

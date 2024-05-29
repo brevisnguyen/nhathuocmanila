@@ -33,7 +33,7 @@ class Post extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(Media|null $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->width(100)

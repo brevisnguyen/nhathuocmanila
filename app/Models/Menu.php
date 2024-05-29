@@ -28,16 +28,4 @@ class Menu extends Model
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
-
-    /**
-     * =================================================================
-     * BOOT FUNC
-     * =================================================================
-     */
-    protected static function booted(): void
-    {
-        static::created(function (Menu $menu) {
-            // ...
-        });
-    }
 }
