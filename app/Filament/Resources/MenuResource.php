@@ -26,14 +26,14 @@ class MenuResource extends Resource
                     ->label('Tên')
                     ->required(),
                 Forms\Components\TextInput::make('link')
-                    ->label('Đường dẫn')
-                    ->required(),
+                    ->label('Đường dẫn'),
                 Forms\Components\Select::make('parent_id')
                     ->label('Thuộc')
                     ->options(Menu::all()->pluck('name', 'id')),
                 Forms\Components\TextInput::make('order')
                     ->label('Thứ tự')
-                    ->numeric(),
+                    ->numeric()
+                    ->default(0),
                 Forms\Components\Toggle::make('open_in_new_tab')
                     ->label('Mở trong tab mới')
                     ->default(false)

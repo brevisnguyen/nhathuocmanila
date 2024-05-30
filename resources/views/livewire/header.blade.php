@@ -34,38 +34,38 @@
                     </a>
                 </div>
                 <div class="nav md:col-span-7 px-2 mx-auto hidden md:block">
-                    <nav
-                        class="py-4 uppercase font-bold flex md:gap-x-3 lg:gap-x-6 xl:gap-x-10 md:text-sm lg:text-base">
-                        <a href="{{ route('home') }}" wire:navigate @class([
-                            'hover:text-lime-500',
-                            'text-lime-500' => request()->routeIs('home'),
-                        ])>
-                            trang chủ
-                        </a>
-                        <a href="{{ route('all-products') }}" wire:navigate @class([
-                            'hover:text-lime-500',
-                            'text-lime-500' => request()->routeIs('all-products'),
-                        ])>
-                            thuốc
-                        </a>
-                        <a href="{{ route('post-card') }}" wire:navigate @class([
-                            'hover:text-lime-500',
-                            'text-lime-500' => request()->routeIs('post-card'),
-                        ])>
-                            tin tức
-                        </a>
-                        <a href="{{ route('profile') }}" wire:navigate @class([
-                            'hover:text-lime-500',
-                            'text-lime-500' => request()->routeIs('profile'),
-                        ])>
-                            đơn hàng
-                        </a>
-                        <a href="{{ route('questions') }}" wire:navigate @class([
-                            'hover:text-lime-500',
-                            'text-lime-500' => request()->routeIs('questions'),
-                        ])>
-                            trợ giúp
-                        </a>
+                    <nav class="py-4 uppercase font-bold flex md:gap-x-3 lg:gap-x-6 xl:gap-x-10 md:text-sm lg:text-base">
+                        @isset($menu)
+                            @foreach ($menu as $item)
+                            @php
+                                $link = $item->link == '/' ? '/' : trim($item->link, '/');
+                            @endphp
+                                <div x-data="{ show: false }" x-on:click.outside="show = false" class="flex items-center relative justify-center">
+                                    <a
+                                        href="{{ $link }}"
+                                        @class(['hover:text-lime-500', 'text-lime-500' => request()->path() == $link])
+                                        @if($item->open_in_new_tab)target="_blank"@endif rel="noopener noreferrer"
+                                    >
+                                        {{ $item->name }}
+                                    </a>
+                                    @if ($item->children->count())
+                                        <button x-on:click="show = !show" class="ml-2 hover:text-lime-500"><i class="fa-solid fa-caret-down"></i></button>
+                                        <ul x-show="show" class="absolute z-20 grid grid-cols-3 gap-3 bg-white border text-sm top-8 w-[28rem] font-semibold shadow-md">
+                                            @foreach ($item->children as $child)
+                                                <li class="p-2">
+                                                    <a
+                                                        href="{{ $child->link }}" class="hover:text-lime-500"
+                                                        @if($item->open_in_new_tab)target="_blank"@endif rel="noopener noreferrer"
+                                                    >
+                                                        {{ $child->name }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                   @endif
+                                </div>
+                            @endforeach
+                        @endisset
                     </nav>
                 </div>
                 <div class="col-span-4 col-start-10 md:col-span-2 flex items-center justify-between lg:justify-around">
@@ -80,7 +80,7 @@
                     @else
                         <a wire:navigate href="{{ route('profile') }}" class="text-blue-500">
                             <span class="hidden md:block text-sm">Đăng nhập/Đăng ký</span>
-                            <i class="fa-solid fa-user block md:hidden text-2xl"></i>
+                            <span class="block md:hidden text-2xl"><i class="fa-solid fa-user"></i></span>
                         </a>
                     @endif
                 </div>

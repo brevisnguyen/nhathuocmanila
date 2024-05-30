@@ -9,7 +9,7 @@
     </button>
 
     @teleport('body')
-    <x-modal name="link-telegram-modal" :show="$errors->isNotEmpty()" focusable>
+    <x-modal name="link-telegram-modal" :show="$errors->isNotEmpty()">
         <form wire:submit="linkToTelegram" class="p-6">
             <h2 class="text-lg font-bold text-gray-900 uppercase mb-5 text-center">Liên kết tài khoản Telegram</h2>
             <p class="text-sm italic text-nowrap mb-5">
