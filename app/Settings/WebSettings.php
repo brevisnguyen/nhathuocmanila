@@ -17,6 +17,7 @@ class WebSettings extends Settings
     public array $thumb_size;
     public array $medium_size;
     public array $large_size;
+    public string $slogan;
 
     public static function group(): string
     {

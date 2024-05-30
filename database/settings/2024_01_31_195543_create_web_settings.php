@@ -17,5 +17,6 @@ return new class extends SettingsMigration
         $this->migrator->add('website.thumb_size', [100, 100]);
         $this->migrator->add('website.medium_size', [350, 350]);
         $this->migrator->add('website.large_size', [640, 640]);
+        $this->migrator->add('website.slogan', '');
     }
 };

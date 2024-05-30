@@ -25,6 +25,12 @@ class WebManage extends SettingsPage
                     ->columns(2)
                     ->contained(false)
                     ->tabs([
+                        Forms\Components\Tabs\Tab::make('Cài đặt chung')
+                            ->icon('heroicon-o-cog')
+                            ->schema([
+                                Forms\Components\TextInput::make('slogan')
+                                    ->hint('Thông điệp trang web')
+                            ]),
                         Forms\Components\Tabs\Tab::make('Liên kết mạng xã hội')
                             ->icon('heroicon-m-share')
                             ->schema([

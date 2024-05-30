@@ -3,7 +3,7 @@
         <div class="footer-top block lg:grid lg:grid-cols-2">
             <div class="logo w-full">
                 <img class="h-14" src="{{ asset('storage/'.$website['logo_landscape']) }}" alt="">
-                <h4 class="slogan mt-5 md:mt-10">Chuyên thuốc theo toa, thuốc đặc trị, tư vấn miễn phí.</h4>
+                <h4 class="slogan mt-5 md:mt-10">{{ $website['slogan'] }}</h4>
                 <h4 class="phone text-base text-indigo-500"><i class="fa-solid fa-square-phone"></i>&nbsp;<span class="font-bold">{{ $website['hotline'] }}</span></h4>
                 <h4 class="font-semibold text-base mt-4 mb-2">Tìm chúng tớ trên</h4>
                 <div class="socials flex gap-x-6 items-center">
