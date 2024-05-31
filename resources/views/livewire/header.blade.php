@@ -3,7 +3,7 @@
         <div class="header-top hidden md:block w-full bg-neutral-100 text-slate-800">
             <div class="container py-3 flex flex-wrap justify-between">
                 <div class="my-auto grid grid-cols-2 divide-x">
-                    <a href="{{ 'https://t.me/' . $website['telegram'] }}" target="_blank"
+                    <a href="{{ 'https://t.me/' . $link['telegram'] }}" target="_blank"
                         class="inline-flex gap-x-1 justify-center items-center hover:text-lime-500">
                         <i class="fa-brands fa-telegram relative"></i>
                         <p class="my-auto">nhathuocmanila</p>
@@ -12,15 +12,15 @@
                 </div>
                 <div class="social flex justify-center items-center gap-x-4">
                     <p class="text-sm text-slate-800 italic">Tìm chúng mình trên</p>
-                    <a href="{{ 'https://www.facebook.com/' . $website['facebook'] }}" target="_blank"
+                    <a href="{{ 'https://www.facebook.com/' . $link['facebook'] }}" target="_blank"
                         class="hover:text-blue-500">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
-                    <a href="{{ 'https://www.tiktok.com/@' . $website['tiktok'] }}" target="_blank"
+                    <a href="{{ 'https://www.tiktok.com/@' . $link['tiktok'] }}" target="_blank"
                         class="hover:text-red-500">
                         <i class="fa-brands fa-tiktok"></i>
                     </a>
-                    <a href="{{ 'https://t.me/' . $website['telegram'] }}" target="_blank" class="hover:text-lime-500">
+                    <a href="{{ 'https://t.me/' . $link['telegram'] }}" target="_blank" class="hover:text-lime-500">
                         <i class="fa-brands fa-telegram"></i>
                     </a>
                 </div>
@@ -30,7 +30,7 @@
             <div class="grid grid-cols-12 items-center">
                 <div class="logo col-span-8 md:col-span-3 px-2 py-3">
                     <a href="{{ route('home') }}" wire:navigate>
-                        <img src="{{ asset('storage/' . $website['logo_landscape']) }}" alt="{{ config('app.name') }}">
+                        <img src="{{ asset('storage/' . $site['site_logo']) }}" alt="{{ config('app.name') }}">
                     </a>
                 </div>
                 <div class="nav md:col-span-7 px-2 mx-auto hidden md:block">
@@ -129,7 +129,7 @@
                             <i class="fa-solid fa-phone"></i>
                         </div>
                         <div class="grid grid-rows-2">
-                            <span class="font-bold">{{ $website['hotline'] }}</span>
+                            <span class="font-bold">{{ $link['hotline'] }}</span>
                             <span class="text-gray-500 text-sm">Hỗ trợ 24/7</span>
                         </div>
                     </div>

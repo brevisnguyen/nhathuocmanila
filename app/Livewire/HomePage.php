@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use App\Models\Product;
-use App\Settings\WebSettings;
+use App\Settings\UploadSettings;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Title;
@@ -27,7 +27,7 @@ class HomePage extends Component
 
     private function getBanners(): array
     {
-        $banners = app(WebSettings::class)->banner;
+        $banners = app(UploadSettings::class)->slider;
 
         foreach ($banners as $key => &$img) {
             if (Storage::disk('public')->exists($img)) {

@@ -15,7 +15,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
             <div>
                 <a href="/" wire:navigate>
-                    <img class="w-2/5 md:w-40 mx-auto" src="{{ asset('storage/'.app(App\Settings\WebSettings::class)->logo_portrait) }}" alt="{{ config('app.name') }}">
+                    <img class="w-2/5 md:w-40 mx-auto" src="{{ asset('storage/'.app(App\Settings\GeneralSettings::class)->site_logo) }}" alt="{{ app(App\Settings\GeneralSettings::class)->site_brand }}">
                 </a>
             </div>
 

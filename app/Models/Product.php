@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Status;
-use App\Settings\WebSettings;
+use App\Settings\UploadSettings;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -62,22 +62,22 @@ class Product extends Model implements HasMedia
         $this->addMediaConversion('thumb')
             ->fit(
                 \Spatie\Image\Enums\Fit::Crop,
-                intval(app(WebSettings::class)->thumb_size[0]),
-                intval(app(WebSettings::class)->thumb_size[1]),
+                intval(app(UploadSettings::class)->thumb['width']),
+                intval(app(UploadSettings::class)->thumb['height']),
             );
 
         $this->addMediaConversion('medium')
             ->fit(
                 \Spatie\Image\Enums\Fit::Crop,
-                intval(app(WebSettings::class)->medium_size[0]),
-                intval(app(WebSettings::class)->medium_size[1]),
+                intval(app(UploadSettings::class)->medium['width']),
+                intval(app(UploadSettings::class)->medium['height']),
             );
 
         $this->addMediaConversion('large')
             ->fit(
                 \Spatie\Image\Enums\Fit::Crop,
-                intval(app(WebSettings::class)->large_size[0]),
-                intval(app(WebSettings::class)->large_size[1]),
+                intval(app(UploadSettings::class)->large['width']),
+                intval(app(UploadSettings::class)->large['height']),
             );
     }
 }

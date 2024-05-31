@@ -91,7 +91,7 @@
                 @endif
                 <div class="action-button mb-3 md:mb-5 lg:mb-8 grid grid-cols-12">
                     <a
-                        href="{{ 'https://t.me/' . app(\App\Settings\WebSettings::class)->telegram }}"
+                        href="{{ 'https://t.me/' . app(\App\Settings\AssociateSettings::class)->telegram }}"
                         target="_blank"
                         class="flex items-center justify-center text-blue-500 col-span-3 rounded-xl border border-blue-500"
                     >
