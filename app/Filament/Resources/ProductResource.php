@@ -33,7 +33,7 @@ class ProductResource extends Resource
                                 ->maxLength(255)
                                 ->live(onBlur: true)
                                 ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $set('slug', \Str::slug($state))),
-                            Forms\Components\TextInput::make('slug')->readOnly(),
+                            Forms\Components\TextInput::make('slug')->required(),
                             Forms\Components\TextInput::make('sold')
                                 ->label('Số lượng đã bán')
                                 ->disabled(),

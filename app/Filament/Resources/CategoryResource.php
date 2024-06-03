@@ -29,7 +29,7 @@ class CategoryResource extends Resource
                     ->live(debounce: 500, onBlur: true)
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state)))
                     ->maxLength(255),
-                Forms\Components\TextInput::make('slug')->readOnly(),
+                Forms\Components\TextInput::make('slug')->required(),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('image')
                     ->label('Hình ảnh')
                     ->disk('categories')
