@@ -23,5 +23,12 @@ export default {
             'nunito': ['Nunito', 'sans-serif'],
         }
     },
-    plugins: [forms],
+    corePlugins: {
+        aspectRatio: false,
+    },
+    plugins: [
+        forms,
+        require('@tailwindcss/typography'),
+        require('@tailwindcss/aspect-ratio')
+    ],
 };

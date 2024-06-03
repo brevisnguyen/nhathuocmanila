@@ -119,7 +119,7 @@
     >
         <h3 class="font-bold text-lg mb-2">Thông tin {{ $product->name }}</h3>
 
-        <div x-show="expanded" x-collapse.duration.1000ms.min.50px>
+        <div x-show="expanded" x-collapse.duration.1000ms.min.50px class="prose prose-base prose-a:text-blue-600 max-w-none">
             {!! $product->description !!}
         </div>
 

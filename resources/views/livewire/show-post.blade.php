@@ -44,9 +44,9 @@
                 </div>
 
                 <div class="mb-4 md:mb-8">
-                    <picture class="object-cover aspect-video mx-auto">
+                    <picture class="object-cover aspect-w-16 aspect-h-9 mx-auto">
                         <source srcset="{{ $post->getFirstMediaUrl('posts', 'large') }}">
-                        <img class="object-cover aspect-video mx-auto" src="https://placehold.co/1280x720">
+                        <img class="object-cover aspect-w-16 aspect-h-9 mx-auto" src="https://placehold.co/1280x720">
                     </picture>
                 </div>
 
@@ -64,9 +64,9 @@
                                     <div class="absolute bottom-0 left-0 w-full py-3 bg-gradient-to-b from-gray-600/50 z-10">
                                         <h3 class="text-lg line-clamp-2 text-ellipsis px-2 text-white">{{ $p->title }}</h3>
                                     </div>
-                                    <picture class="object-cover aspect-video group-hover:scale-110 rounded">
+                                    <picture class="object-cover aspect-w-16 aspect-h-9 group-hover:scale-110 rounded">
                                         <source srcset="{{ $p->getFirstMediaUrl('posts', 'medium') }}">
-                                        <img class="aspect-video object-cover group-hover:scale-110 rounded" src="https://placehold.co/640x360">
+                                        <img class="aspect-w-16 aspect-h-9 object-cover group-hover:scale-110 rounded" src="https://placehold.co/640x360">
                                     </picture>
                                 </a>
                             </div>
@@ -80,10 +80,10 @@
                                 class="grid grid-cols-12 text-sm md:text-base overflow-hidden group"
                                 href="{{ $p->url }}" wire:navigate
                             >
-                                <picture class="col-span-4 object-cover aspect-video rounded">
+                                <picture class="col-span-4 object-cover aspect-w-16 aspect-h-9 rounded">
                                     <source srcset="{{ $p->getFirstMediaUrl('posts', 'thumb') }}" media="(max-width: 800px)">
                                     <source srcset="{{ $p->getFirstMediaUrl('posts', 'medium') }}" media="(min-width: 800px)">
-                                    <img class="object-cover aspect-video rounded" src="https://placehold.co/320x180">
+                                    <img class="object-cover aspect-w-16 aspect-h-9 rounded" src="https://placehold.co/320x180">
                                 </picture>
                                 <div class="ml-2 flex-1 col-span-8">
                                     <h3 class="font-semibold line-clamp-1 text-ellipsis mb-1 group-hover:text-lime-600">{{ $p->title }}</h3>

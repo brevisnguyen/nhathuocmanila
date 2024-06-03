@@ -58,9 +58,9 @@
                 @foreach ($items as $item)
                 <div class="grid grid-cols-12 py-2">
                     <div class="col-span-3">
-                        <picture class="object-cover aspect-square h-auto w-24 md:w-28">
+                        <picture class="object-cover aspect-w-1 aspect-h-1 h-auto w-24 md:w-28">
                             <source srcset="{{ $item->product?->getFirstMediaUrl('products', 'thumb') }}">
-                            <img class="h-auto w-24 md:w-28 aspect-square object-cover" src="https://placehold.co/150x150">
+                            <img class="h-auto w-24 md:w-28 aspect-w-1 aspect-h-1 object-cover" src="https://placehold.co/150x150">
                         </picture>
                     </div>
                     <div class="col-span-9 ml-2 flex flex-col overflow-hidden text-sm md:text-base">

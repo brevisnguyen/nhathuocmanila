@@ -88,10 +88,10 @@
                             href="{{ $post->url }}"
                             wire:navigate
                         >
-                            <picture class="aspect-video object-cover rounded">
+                            <picture class="aspect-w-16 aspect-h-9 object-cover rounded">
                                 <source srcset="{{ $post->getFirstMediaUrl('posts', 'medium') }}" media="(max-width: 800px)">
                                 <source srcset="{{ $post->getFirstMediaUrl('posts', 'large') }}" media="(min-width: 800px)">
-                                <img class="aspect-video object-cover rounded" src="https://placehold.co/1280x720">
+                                <img class="aspect-w-16 aspect-h-9 object-cover rounded" src="https://placehold.co/1280x720">
                             </picture>
                             <div class="mt-2">
                                 <h3 class="text-lg md:text-2xl font-bold line-clamp-1 text-ellipsis mb-1 group-hover:text-lime-600">{{ $post->title }}</h3>
@@ -111,10 +111,10 @@
                             href="{{ $post->url }}"
                             wire:navigate
                         >
-                            <picture class="col-span-4 object-cover aspect-video rounded">
+                            <picture class="col-span-4 object-cover aspect-w-16 aspect-h-9 rounded">
                                 <source srcset="{{ $post->getFirstMediaUrl('posts', 'thumb') }}" media="(max-width: 800px)">
                                 <source srcset="{{ $post->getFirstMediaUrl('posts', 'medium') }}" media="(min-width: 800px)">
-                                <img class="object-cover aspect-video rounded" src="https://placehold.co/320x180">
+                                <img class="object-cover aspect-w-16 aspect-h-9 rounded" src="https://placehold.co/320x180">
                             </picture>
                             <div class="ml-2 flex-1 col-span-8">
                                 <h3 class="font-semibold line-clamp-1 text-ellipsis mb-1 group-hover:text-lime-600">{{ $post->title }}</h3>

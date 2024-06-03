@@ -3,7 +3,7 @@
     <div class="container">
         <h2 class="text-xl md:text-3xl uppercase font-bold text-center mb-3 md:mb-5">tin tức mới nhất</h2>
         <p class="text-xs md:text-sm text-center mb-4 md:mb-8">Bài viết được tác giả dựa theo kinh nghiệm bản thân và thu thập từ nhiều nguồn trên internet. Mọi ý kiến đóng góp xin gửi về Telegram @nhathuocmanila</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-5 md:gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 md:gap-8">
             @foreach($posts as $post)
             <div class="flex flex-col">
                 <a
@@ -11,10 +11,10 @@
                     href="{{ $post->url }}"
                     wire:navigate
                 >
-                    <picture class="aspect-video object-cover rounded hover:scale-105">
+                    <picture class="aspect-w-16 aspect-h-9 object-cover rounded hover:scale-105">
                         <source srcset="{{ $post->getFirstMediaUrl('posts', 'medium') }}" media="(max-width: 800px)">
                         <source srcset="{{ $post->getFirstMediaUrl('posts', 'large') }}" media="(min-width: 800px)">
-                        <img class="aspect-video object-cover rounded hover:scale-105" src="https://placehold.co/640x360">
+                        <img class="aspect-w-16 aspect-h-9 object-cover rounded hover:scale-105" src="https://placehold.co/640x360">
                     </picture>
                 </a>
                 <a href="{{ $post->url }}" wire:navigate>
