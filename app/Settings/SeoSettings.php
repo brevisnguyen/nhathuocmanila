@@ -21,6 +21,9 @@ class SeoSettings extends Settings
     public ?string $meta_post_title;
     public ?string $meta_post_description;
     public ?string $meta_post_keywords;
+    public ?string $social_facebook_app_id;
+    public ?string $scripts_facebook_sdk;
+    public ?string $scripts_google_analytics;
 
     public static function group(): string
     {

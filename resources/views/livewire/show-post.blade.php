@@ -50,7 +50,7 @@
                     </picture>
                 </div>
 
-                <div class="mb-4 md:mb-8">{!! $post->content !!}</div>
+                <div class="mb-4 md:mb-8 prose prose-base prose-a:text-blue-600 max-w-none">{!! $post->content !!}</div>
             </div>
             <div class="md:col-span-4 md:px-4">
                 <div class="border-b-2 border-gray-200 w-full pb-1 after:content-[''] after:w-40 after:bg-red-600 after:h-[2px] after:block after:relative after:-bottom-[6px]">

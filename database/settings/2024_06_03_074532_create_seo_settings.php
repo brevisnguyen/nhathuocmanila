@@ -12,6 +12,9 @@ return new class extends SettingsMigration
         $this->migrator->add('seo.meta_description', '');
         $this->migrator->add('seo.meta_keywords', '');
         $this->migrator->add('seo.meta_image', '');
+        $this->migrator->add('seo.social_facebook_app_id', '');
+        $this->migrator->add('seo.scripts_facebook_sdk', '');
+        $this->migrator->add('seo.scripts_google_analytics', '');
 
         $this->migrator->add('seo.meta_category_title', '');
         $this->migrator->add('seo.meta_category_description', '');

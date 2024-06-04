@@ -43,12 +43,6 @@ class GeneralManage extends SettingsPage
                     ->columns(),
                 Forms\Components\Section::make('Khác')
                     ->schema([
-                        Forms\Components\TextInput::make('site_facebook_app_id')
-                            ->label('Facebook App ID'),
-                        Forms\Components\Textarea::make('site_scripts_facebook_sdk')
-                            ->label('Facebook JS SDK script tag'),
-                        Forms\Components\Textarea::make('site_scripts_google_analytics')
-                            ->label('Google analytics script tag'),
                         Forms\Components\Textarea::make('additional_footer_js')
                             ->label('Footer JS'),
                     ])

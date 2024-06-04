@@ -30,21 +30,27 @@ class SeoManage extends SettingsPage
                                     ->label('Tên website'),
                                 Forms\Components\TextInput::make('meta_title')
                                     ->label('Tiêu đề mặc định'),
-                                Forms\Components\FileUpload::make('meta_favicon')
-                                    ->label('Favicon')
-                                    ->hint('Định dạng file .ico, kích thước 48x48, 96x96 hoặc 144x144 px')
-                                    ->image()
-                                    ->preserveFilenames()
-                                    ->imageEditor(),
-                                Forms\Components\Textarea::make('meta_description')
+                                    Forms\Components\Textarea::make('meta_description')
                                     ->label('Mô tả website'),
-                                Forms\Components\TextInput::make('meta_keywords')
+                                    Forms\Components\TextInput::make('meta_keywords')
                                     ->label('Các từ khóa liên quan'),
+                                Forms\Components\FileUpload::make('meta_favicon')
+                                        ->label('Favicon')
+                                        ->hint('Định dạng file .ico, kích thước 48x48, 96x96 hoặc 144x144 px')
+                                        ->image()
+                                        ->preserveFilenames()
+                                        ->imageEditor(),
                                 Forms\Components\FileUpload::make('meta_image')
                                     ->label('Ảnh meta')
                                     ->image()
                                     ->hint('Tối đa 1024Kb')
                                     ->maxSize(1024),
+                                Forms\Components\TextInput::make('social_facebook_app_id')
+                                    ->label('Facebook App ID'),
+                                Forms\Components\Textarea::make('scripts_facebook_sdk')
+                                    ->label('Facebook JS SDK script tag'),
+                                Forms\Components\Textarea::make('scripts_google_analytics')
+                                    ->label('Google analytics script tag'),
                             ]),
                         Forms\Components\Tabs\Tab::make('Danh mục thuốc')
                             ->icon('heroicon-o-view-columns')

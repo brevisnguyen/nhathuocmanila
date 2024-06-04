@@ -30,7 +30,7 @@
             <div class="grid grid-cols-12 items-center">
                 <div class="logo col-span-8 md:col-span-3 px-2 py-3">
                     <a href="{{ route('home') }}" wire:navigate>
-                        <img src="{{ asset('storage/' . $site['site_logo']) }}" alt="{{ config('app.name') }}">
+                        <img src="" alt="{{ config('app.name') }}">
                     </a>
                 </div>
                 <div class="nav md:col-span-7 px-2 mx-auto hidden md:block">

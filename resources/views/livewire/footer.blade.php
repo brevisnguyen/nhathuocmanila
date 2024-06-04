@@ -2,7 +2,7 @@
     <div class="container pb-3 md:pb-6 pt-6 md:pt-10">
         <div class="footer-top block lg:grid lg:grid-cols-2">
             <div class="logo w-full">
-                <img class="h-14" src="{{ asset('storage/'.$site['site_logo']) }}" alt="">
+                <img class="h-14" src="" alt="">
                 <h4 class="slogan mt-5 md:mt-10">{{ $site['site_slogan'] }}</h4>
                 <h4 class="phone text-base text-indigo-500"><i class="fa-solid fa-square-phone"></i>&nbsp;<span class="font-bold">{{ $link['hotline'] }}</span></h4>
                 <h4 class="font-semibold text-base mt-4 mb-2">Tìm chúng tớ trên</h4>
