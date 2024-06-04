@@ -43,8 +43,12 @@ class GeneralManage extends SettingsPage
                     ->columns(),
                 Forms\Components\Section::make('Khác')
                     ->schema([
+                        Forms\Components\TextInput::make('telegram_token')
+                            ->label('Telegram Bot Token')
+                            ->columnStart(1),
                         Forms\Components\Textarea::make('additional_footer_js')
-                            ->label('Footer JS'),
+                            ->label('Footer JS')
+                            ->columnStart(1),
                     ])
                     ->collapsible()
                     ->columns(),
@@ -53,6 +57,8 @@ class GeneralManage extends SettingsPage
 
     protected function afterSave(): void
     {
-        // dd($this->data);
+        if (isset($this->data['telegram_token'])) {
+            overWriteEnvFile('TELEGRAM_TOKEN', $this->data['telegram_token']);
+        }
     }
 }

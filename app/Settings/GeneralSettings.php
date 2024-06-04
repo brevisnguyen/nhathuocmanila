@@ -10,6 +10,7 @@ class GeneralSettings extends Settings
     public ?string $site_slogan;
     public ?string $site_logo;
     public ?string $site_cache_ttl;
+    public ?string $telegram_token;
     public ?string $additional_footer_js;
 
     public static function group(): string
