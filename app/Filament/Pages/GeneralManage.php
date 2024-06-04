@@ -50,4 +50,9 @@ class GeneralManage extends SettingsPage
                     ->columns(),
             ]);
     }
+
+    protected function afterSave(): void
+    {
+        // dd($this->data);
+    }
 }
