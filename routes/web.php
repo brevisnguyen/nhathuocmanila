@@ -12,6 +12,7 @@ use App\Livewire\ShowCategory;
 use App\Livewire\ShowPost;
 use App\Livewire\ShowProduct;
 use App\Livewire\User\Profile;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,10 @@ Route::get('/cau-hoi-thuong-gap', QuestionAnswerPage::class)->name('questions');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', Profile::class)->name('profile');
     Route::get('/dat-hang', PlacedOrder::class)->name('placed-order');
+    Route::post('/clear-cache', function() {
+        Cache::flush();
+        return redirect()->back();
+    })->name('clear-cache');
 });
 
 /**

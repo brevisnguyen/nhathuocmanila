@@ -10,7 +10,8 @@ use Flowframe\Trend\TrendValue;
 
 class OrderRevenueChart extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
+    protected static ?string $heading = 'Doanh thu';
+    protected static ?string $pollingInterval = '10s';
 
     protected function getData(): array
     {
