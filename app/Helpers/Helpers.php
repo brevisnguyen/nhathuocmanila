@@ -50,3 +50,14 @@ if (!function_exists('overWriteEnvFile')) {
         }
     }
 }
+
+if (!function_exists('message')) {
+    function message(string $view, array $values = []): string
+    {
+        return rescue(function () use ($view, $values) {
+            return (string) Str::of(view("messages.$view", $values)->render())
+                ->replaceMatches('/\r\n|\r|\n/', '')
+                ->replace(['<br>', '<BR>'], "\n");
+        }, "messages.$view", false);
+    }
+}
