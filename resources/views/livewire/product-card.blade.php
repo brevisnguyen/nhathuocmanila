@@ -12,9 +12,9 @@
         </div>
     </div>
     <div class="flex flex-col bg-slate-50 rounded-md group-hover:md:border-2 group-hover:md:border-lime-600">
-        <picture class="aspect-w-1 aspect-h-1 object-cover rounded-t-md">
+        <picture class="object-cover rounded-t-md">
             <source srcset="{{ $product->getFirstMediaUrl('products', 'medium') }}">
-            <img class="aspect-w-1 aspect-h-1 object-cover rounded-t-md" src="https://placehold.co/350x350">
+            <img class="object-cover rounded-t-md" src="https://placehold.co/350x350">
         </picture>
         <div class="my-2 px-2">
             <a

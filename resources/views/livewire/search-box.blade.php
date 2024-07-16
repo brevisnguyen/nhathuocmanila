@@ -50,9 +50,9 @@
             @foreach ($results as $item)
                 <li wire:key="{{ $item->id }}" data-url="{{ $item->url }}" class="border-b px-2 py-1 hover:bg-gray-100" x-bind:class="{'bg-gray-100': @json($loop->index) === highlightedIndex}">
                     <a href="{{ $item->url }}" wire:navigate class="flex">
-                        <picture class="aspect-w-1 aspect-h-1 object-cover h-12 w-12">
+                        <picture class="object-cover w-12 h-auto">
                             <source srcset="{{ $item->getFirstMediaUrl('products', 'thumb') }}">
-                            <img class="aspect-w-1 aspect-h-1 object-cover h-12 w-12" src="https://placehold.co/50x50">
+                            <img class="object-cover w-12 h-auto" src="https://placehold.co/50x50">
                         </picture>
                         <p class="ml-3 text-sm">{{ $item->name }}</p>
                     </a>
