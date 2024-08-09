@@ -17,8 +17,8 @@
                         this.unitId = id;
                     },
                     init() {
-                        this.unitId = '{{ $product->units->firstWhere('pivot.default', 1)->id }}',
-                        this.priceText = '{{ money($product->units->firstWhere('pivot.default', 1)->pivot->amount) . ' / ' . $product->units->firstWhere('pivot.default', 1)->name }}'
+                        this.unitId = '{{ $product->units->firstWhere('pivot.default', 1)?->id }}',
+                        this.priceText = '{{ money($product->units->firstWhere('pivot.default', 1)?->pivot->amount) . ' / ' . $product->units->firstWhere('pivot.default', 1)?->name }}'
                     }
                 }"
             >

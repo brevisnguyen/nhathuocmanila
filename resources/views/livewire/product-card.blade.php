@@ -32,9 +32,13 @@
             @disabled($product->status == App\Enums\Status::SOLD_OUT)
             class="m-auto px-5 py-2 mb-2 flex items-center justify-center bg-lime-600 text-white rounded-lg disabled:opacity-70"
         >
+            @if ($product->status == App\Enums\Status::SOLD_OUT)
+            <span class="block">Hết hàng</span>
+            @else
             <i class="fa-solid fa-cart-plus mr-1.5"></i>
             <span class="block md:hidden">Bỏ túi</span>
             <span class="hidden md:block">Thêm vào giỏ</span>
+            @endif
         </button>
     </div>
 </div>
