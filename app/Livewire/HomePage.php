@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\Status;
 use App\Models\Post;
 use App\Models\Product;
 use App\Settings\UploadSettings;
@@ -44,7 +45,7 @@ class HomePage extends Component
         return Cache::remember(
             'flash_sale_today',
             now()->endOfDay(),
-            fn () => Product::inRandomOrder()->limit(15)->get()
+            fn () => Product::inRandomOrder()->where('status', Status::IN_STOCK)->limit(15)->get()
         );
     }
 
